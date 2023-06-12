@@ -1,0 +1,16 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{8D9CF2F3-422C-A18C-EE8B-258DC59E173F}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "ParadiddleWorkshop",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"CoreUObject"
+			]
+		}
+	]
+}
