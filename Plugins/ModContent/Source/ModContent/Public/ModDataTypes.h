@@ -150,6 +150,61 @@ public:
 	
 };
 
+UENUM(BlueprintType)
+enum class EModDrumType:uint8
+{
+	Snare,
+	China15,
+	Crash13,
+	Crash15,
+	Crash17,
+	FloorTom,
+	TealTom,
+	GreenTom,
+	Kick,
+	Other,
+};
+
+UENUM(BlueprintType)
+enum class ESoundAsset:uint8
+{
+	Bongo,
+	Cowbell,
+	Glockenspiel,
+	Triangle,
+	China15,
+	Crash13,
+	Crash15,
+	Crash17,
+	Snare,
+	FloorTom,
+	TealTom,
+	GreenTom,
+	Kick,
+	
+};
+
+USTRUCT(BlueprintType)
+struct FModDrumData
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	ESoundAsset ModDrumSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EModDrumType ModDrumType;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	FLinearColor DrumColor;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	FString FriendlyName;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UClass* ModDrumClass;
+};
+
 
 /**
  * 

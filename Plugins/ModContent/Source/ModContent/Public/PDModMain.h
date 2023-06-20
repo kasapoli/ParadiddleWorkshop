@@ -37,7 +37,7 @@ public:
 	UClass* DrumClass;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Drums")
-	TArray<UClass*> CustomDrumClasses;
+	TArray<FModDrumData> CustomDrumClasses;
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Drums")
 	bool bOverridesDrumsticks;
