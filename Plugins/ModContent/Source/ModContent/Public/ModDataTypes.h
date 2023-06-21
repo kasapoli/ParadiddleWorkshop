@@ -162,6 +162,9 @@ enum class EModDrumType:uint8
 	TealTom,
 	GreenTom,
 	Kick,
+	HiHat,
+	Ride17,
+	Ride20,
 	Other,
 };
 
@@ -181,6 +184,9 @@ enum class ESoundAsset:uint8
 	TealTom,
 	GreenTom,
 	Kick,
+	Ride17,
+	Ride20,
+	HiHat,
 	
 };
 
