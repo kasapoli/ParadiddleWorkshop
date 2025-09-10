@@ -84,6 +84,25 @@ struct FModMapData
 };
 
 USTRUCT(BlueprintType)
+struct FModWorldData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FString WorldFriendlyName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSoftObjectPtr<UWorld> WorldPtr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FString WorldDescription;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UTexture2D* WorldIcon;
+	
+};
+
+USTRUCT(BlueprintType)
 struct FRealtimeSongData
 {
 	GENERATED_BODY()

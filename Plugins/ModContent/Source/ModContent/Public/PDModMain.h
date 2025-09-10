@@ -18,6 +18,9 @@ class MODCONTENT_API UPDModMain : public UDataAsset
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ModMaps")
 	TArray<FModMapData> MapDatas;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ModMaps")
+	TArray<FModWorldData> ModWorldData;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Highway Override")
 	bool bOverridesHighwayTrack;
