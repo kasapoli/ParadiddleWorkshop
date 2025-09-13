@@ -18,6 +18,11 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FFireModeSwitched, bool, IsFireModeO
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongTimeReset, float, NewSongTime);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongPauseSwitch,bool,IsPaused);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongNoteHit, bool, IsNoteMissed);
+
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FModMapLoadCalled,const TSoftObjectPtr<UWorld>&, ModMap);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLevelStreamCompleteDelegate,bool,IsSuccess);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLevelUnloadCompleteDelegate,bool,IsSuccess);
 /**
  * 
  */
@@ -31,6 +36,9 @@ public:
 	//FUNCTIONS, VARIABLES AND DELEGATES TO BE USED BY MODDERS
 	UFUNCTION(BlueprintCallable)
 	FRealtimeSongData GetCurrentSongData();
+
+	UFUNCTION(BlueprintCallable)
+	void LoadModMap(const TSoftObjectPtr<UWorld> MapToLoad);
 
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FModDrumHit DrumHit;
@@ -66,6 +74,15 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	FRealtimeSongData RealtimeSongData;
+	
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FModMapLoadCalled ModMapLoadCalled;
+
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FLevelStreamCompleteDelegate LevelStreamCompleteDelegate;
+
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FLevelUnloadCompleteDelegate LevelUnloadCompleteDelegate;
 
 
 };

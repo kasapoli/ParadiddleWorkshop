@@ -2,7 +2,7 @@
 
 
 #include "ModManagerActor.h"
-
+#include "ModCommunicationSubsystem.h"
 
 // Sets default values
 AModManagerActor::AModManagerActor()

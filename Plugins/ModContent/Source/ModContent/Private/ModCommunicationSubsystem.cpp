@@ -9,3 +9,9 @@ FRealtimeSongData UModCommunicationSubsystem::GetCurrentSongData()
 	
 }
 
+void UModCommunicationSubsystem::LoadModMap(const TSoftObjectPtr<UWorld> MapToLoad)
+{
+	ModMapLoadCalled.Broadcast(MapToLoad);
+
+}
+
