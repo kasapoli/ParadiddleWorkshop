@@ -7,6 +7,7 @@ public class ModContent : ModuleRules
 	public ModContent(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
+		PublicDefinitions.Add("MAIN_APPLICATION=1");
 		
 		PublicIncludePaths.AddRange(
 			new string[] {

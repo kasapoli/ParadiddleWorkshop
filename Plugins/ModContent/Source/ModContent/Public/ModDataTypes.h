@@ -230,6 +230,20 @@ public:
 	UClass* ModDrumClass;
 };
 
+USTRUCT(BlueprintType)
+struct FActiveDrumData
+{
+	GENERATED_BODY()
+	public:
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	FLinearColor DrumColor;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	EModDrumType DrumType;
+	
+};
+
 
 /**
  * 

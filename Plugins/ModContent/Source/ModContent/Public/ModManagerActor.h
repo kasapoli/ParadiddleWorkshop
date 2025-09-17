@@ -5,13 +5,18 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ModDataTypes.h"
 #include "ModManagerActor.generated.h"
 
 
 class UPDModMain;
+
+DECLARE_DELEGATE_RetVal_TwoParams( AActor*,FDrumSpawnRequestDelegate, const FModDrumData& ,FVector);
+
 UCLASS()
 class MODCONTENT_API AModManagerActor : public AActor
 {
+
 	GENERATED_BODY()
 
 public:
@@ -38,7 +43,6 @@ public:
 	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable, Category = "MainAppOnly")
 	void InitMod_FromMain(AActor* PawnActor, ECollisionChannel UICollisionChannel);
 
-	
 private:
 	UPROPERTY(EditAnywhere)
 	UPDModMain* ModData;
