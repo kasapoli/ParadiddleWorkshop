@@ -11,7 +11,6 @@
 
 class UPDModMain;
 
-DECLARE_DELEGATE_RetVal_TwoParams( AActor*,FDrumSpawnRequestDelegate, const FModDrumData& ,FVector);
 
 UCLASS()
 class MODCONTENT_API AModManagerActor : public AActor

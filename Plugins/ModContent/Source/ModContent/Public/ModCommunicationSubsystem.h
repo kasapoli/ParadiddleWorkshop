@@ -25,7 +25,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLevelStreamCompleteDelegate,bool,Is
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLevelUnloadCompleteDelegate,bool,IsSuccess);
 
 
-DECLARE_DELEGATE_RetVal_TwoParams( AActor*,FDrumSpawnRequestDelegate, const FModDrumData& ,FVector);
+DECLARE_DELEGATE_RetVal_TwoParams(AActor*,FDrumSpawnRequestDelegate, UClass* ,FVector);
 DECLARE_DELEGATE_RetVal_OneParam(AActor*, FModDrumGetRequestDelegate, AActor*);
 DECLARE_DELEGATE_RetVal_OneParam(FLinearColor, FDrumColorRequestDelegate, EModDrumType);
 /**
@@ -51,7 +51,7 @@ public:
 	*  your custom class.
 	*/
 	UFUNCTION(BlueprintCallable, Category = "ModDrums")
-	AActor* SpawnModDrum(const FModDrumData& DrumData, FVector SpawnPos);
+	AActor* SpawnModDrum(UClass* DrumClass, FVector SpawnPos);
 
 	/**  Call this  to get the actor spawned from mod class. This can be cast to the mod drum class.
 	* 

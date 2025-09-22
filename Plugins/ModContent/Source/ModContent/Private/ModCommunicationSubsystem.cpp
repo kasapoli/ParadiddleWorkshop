@@ -15,11 +15,11 @@ void UModCommunicationSubsystem::LoadModMap(const TSoftObjectPtr<UWorld> MapToLo
 
 }
 
-AActor* UModCommunicationSubsystem::SpawnModDrum(const FModDrumData& DrumData, FVector SpawnPos)
+AActor* UModCommunicationSubsystem::SpawnModDrum(UClass* DrumClass, FVector SpawnPos)
 {
 	if (ModSpawnRequestDelegate.IsBound())
 	{
-		return ModSpawnRequestDelegate.Execute(DrumData, SpawnPos);
+		return ModSpawnRequestDelegate.Execute(DrumClass, SpawnPos);
 	}
 	return nullptr;
 }
