@@ -33,3 +33,12 @@ AActor* UModCommunicationSubsystem::GetModDrum(AActor* MainAppDrumActor)
 	return nullptr;
 }
 
+FLinearColor UModCommunicationSubsystem::GetModDrumColor(EModDrumType ModDrumType)
+{
+	if (DrumColorRequestDelegate.IsBound())
+	{
+		return DrumColorRequestDelegate.Execute(ModDrumType);
+	}
+	return FLinearColor::Red;
+}
+

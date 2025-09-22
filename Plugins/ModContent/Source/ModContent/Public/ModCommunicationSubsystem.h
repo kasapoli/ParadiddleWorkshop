@@ -26,7 +26,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLevelUnloadCompleteDelegate,bool,Is
 
 
 DECLARE_DELEGATE_RetVal_TwoParams( AActor*,FDrumSpawnRequestDelegate, const FModDrumData& ,FVector);
-DECLARE_DELEGATE_RetVal_OneParam(AActor*, FModDrumGetRequestDelegate, AActor*)
+DECLARE_DELEGATE_RetVal_OneParam(AActor*, FModDrumGetRequestDelegate, AActor*);
+DECLARE_DELEGATE_RetVal_OneParam(FLinearColor, FDrumColorRequestDelegate, EModDrumType);
 /**
  * 
  */
@@ -73,6 +74,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	const TMap<AActor*, FActiveDrumData>& GetActiveDrums() {return ActiveDrums;};
 
+	/**  Call this function to get the  color used by the main app for the given drum type. Using matching colors
+	 *  is recommended but not compulsory
+	* 
+	*  @return color for the drum type
+	*/
+	UFUNCTION(BlueprintCallable)
+	FLinearColor GetModDrumColor(EModDrumType ModDrumType);
+
+	
 	/**  DO NOT CALL-HANDLED BY MAIN APP
 	*/
 	UFUNCTION(BlueprintCallable)
@@ -136,6 +146,11 @@ public:
 	*  DO NOT BIND OR CALL MANUALLY
 	*/
 	FModDrumGetRequestDelegate ModDrumGetRequestDelegate;
+	
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FDrumColorRequestDelegate DrumColorRequestDelegate;
 	
 private:
 
