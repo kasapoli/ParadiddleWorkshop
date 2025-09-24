@@ -42,3 +42,12 @@ FLinearColor UModCommunicationSubsystem::GetModDrumColor(EModDrumType ModDrumTyp
 	return FLinearColor::Red;
 }
 
+ECollisionChannel UModCommunicationSubsystem::RequestLaserInteractionChannel()
+{
+	if (InterfaceLaserChannelRequestDelegate.IsBound())
+	{
+		return InterfaceLaserChannelRequestDelegate.Execute();
+	}
+	return ECollisionChannel::ECC_WorldDynamic;
+}
+

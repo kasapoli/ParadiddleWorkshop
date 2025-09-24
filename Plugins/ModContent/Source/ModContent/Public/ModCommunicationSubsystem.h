@@ -28,6 +28,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLevelUnloadCompleteDelegate,bool,Is
 DECLARE_DELEGATE_RetVal_TwoParams(AActor*,FDrumSpawnRequestDelegate, UClass* ,FVector);
 DECLARE_DELEGATE_RetVal_OneParam(AActor*, FModDrumGetRequestDelegate, AActor*);
 DECLARE_DELEGATE_RetVal_OneParam(FLinearColor, FDrumColorRequestDelegate, EModDrumType);
+DECLARE_DELEGATE_RetVal(ECollisionChannel,FInterfaceLaserChannelRequestDelegate);
 /**
  * 
  */
@@ -82,6 +83,14 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FLinearColor GetModDrumColor(EModDrumType ModDrumType);
 
+	/**  Call this function to get the collision channel of the UI interaction laser to set response
+	 *  Main app will try to access PDModInteractionInterface functions once collision has been triggered
+	* 
+	*  @return Collision channel of the UI Interaction laser used in the main app
+	*/
+	UFUNCTION(BlueprintCallable)
+	ECollisionChannel RequestLaserInteractionChannel();
+
 	
 	/**  DO NOT CALL-HANDLED BY MAIN APP
 	*/
@@ -92,34 +101,66 @@ public:
 	*/
 	UFUNCTION(BlueprintCallable)
 	void RemoveActiveDrumForMod(AActor* DrumActor){ActiveDrums.Remove(DrumActor);};
-	
+
+
+	/** Subscribe to this to listen to drum hits including hits from the drums that does not belong to your mod. 
+	 *	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app both for mod and non-mod drums
+	 */
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FModDrumHit DrumHit;
-
+	
+	/** Broadcasted when a new drum is introduced to the scene. 
+	 *	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app both for mod and non-mod drums
+	 */
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FDrumCreated DrumCreated;
-
+	
+	/** Broadcasted when a drum is removed from the scene
+	 *	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app both for mod and non-mod drums
+	 */
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FDrumRemoved DrumRemoved;
 
+	/** Broadcasted when a song gets created
+	*	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app 
+	*/
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FSongCreated SongCreated;
-
+	
+	/** Broadcasted when a song is completed (not deleted)
+	*	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app 
+	*/
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FSongFinished SongFinished;
 
+	/** Broadcasted when a song is deleted (it may not be completed)
+	*	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app 
+	*/
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FSongDeleted SongDeleted;
 
+	/** Broadcasted when fire mode is enabled/dieabled due the consecutive successful hits or a miss
+	*	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app 
+	*/
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FFireModeSwitched FireModeSwitched;
-
+	
+	/** Broadcasted when the song time is reset due to an event such as rewind, fast-forward etc.
+	*	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app 
+	*/
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FSongTimeReset SongTimeReset;
 
+	/** Broadcasted when the song time is reset due to an event such as rewind, fast-forward etc.
+	*	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app 
+	*/
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FSongPauseSwitch SongPauseSwitch;
 
+	/** Broadcasted when a song note has completed its lifetime, either by being hit successfully or by
+	 * being missed
+	*	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app 
+	*/
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FSongNoteHit SongNoteHit;
 
@@ -151,7 +192,11 @@ public:
 	*  DO NOT BIND OR CALL MANUALLY
 	*/
 	FDrumColorRequestDelegate DrumColorRequestDelegate;
-	
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FInterfaceLaserChannelRequestDelegate InterfaceLaserChannelRequestDelegate;
 private:
 
 	/**  This map contains references to all the active drum actors in the app

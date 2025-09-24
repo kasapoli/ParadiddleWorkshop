@@ -19,7 +19,8 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ModMaps")
 	TArray<FModWorldData> ModWorldData;
-	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ModGames")
+	TArray<FModWorldData> ModGamesData;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Highway Override")
 	bool bOverridesHighwayTrack;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Highway Override", meta = (EditCondition = "bOverridesHighwayTrack"))
