@@ -51,3 +51,4 @@ ECollisionChannel UModCommunicationSubsystem::RequestLaserInteractionChannel()
 	return ECollisionChannel::ECC_WorldDynamic;
 }
 
+

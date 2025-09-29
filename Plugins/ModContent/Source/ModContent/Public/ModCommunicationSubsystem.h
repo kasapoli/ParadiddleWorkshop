@@ -23,6 +23,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongNoteHit, bool, IsNoteMissed);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FModMapLoadCalled,const TSoftObjectPtr<UWorld>&, ModMap);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLevelStreamCompleteDelegate,bool,IsSuccess);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLevelUnloadCompleteDelegate,bool,IsSuccess);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FManipulationModeSwitchRequestDelegate,bool,IsManipulationModeOn);
 
 
 DECLARE_DELEGATE_RetVal_TwoParams(AActor*,FDrumSpawnRequestDelegate, UClass* ,FVector);
@@ -102,6 +103,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void RemoveActiveDrumForMod(AActor* DrumActor){ActiveDrums.Remove(DrumActor);};
 
+	/** Broadcast this to request manipulation mode switch from the main app.
+	 * Example: Broadcast with "false" to switch to drum sticks automatically once you start a mod game.
+	*/
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FManipulationModeSwitchRequestDelegate ManipulationModeSwitchDelegate;
 
 	/** Subscribe to this to listen to drum hits including hits from the drums that does not belong to your mod. 
 	 *	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app both for mod and non-mod drums
