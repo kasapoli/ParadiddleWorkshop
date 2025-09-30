@@ -22,15 +22,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ModGames")
 	TArray<FModWorldData> ModGamesData;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Highway Override")
-	bool bOverridesHighwayTrack;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Highway Override", meta = (EditCondition = "bOverridesHighwayTrack"))
-	UClass* HighwayTrackOverrideClass;
+	TArray<UClass*> HighwayTrackOverrideClasses;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Highway Override")
-	bool bOverridesHighwayNotes;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Highway Override", meta = (EditCondition = "bOverridesHighwayNotes"))
-	UClass* RectangleNoteClas;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Highway Override", meta = (EditCondition = "bOverridesHighwayNotes"))
-	UClass* CircleNoteClass;
+	TArray<UClass*> RectangleNoteClasses;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Highway Override")
+	TArray<UClass*> CircleNoteClasses;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Drums")
 	TArray<UClass*> CustomDrumClasses;
 	

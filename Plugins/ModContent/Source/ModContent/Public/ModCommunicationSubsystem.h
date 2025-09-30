@@ -23,13 +23,17 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongNoteHit, bool, IsNoteMissed);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FModMapLoadCalled,const TSoftObjectPtr<UWorld>&, ModMap);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLevelStreamCompleteDelegate,bool,IsSuccess);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLevelUnloadCompleteDelegate,bool,IsSuccess);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FManipulationModeSwitchRequestDelegate,bool,IsManipulationModeOn);
 
 
 DECLARE_DELEGATE_RetVal_TwoParams(AActor*,FDrumSpawnRequestDelegate, UClass* ,FVector);
 DECLARE_DELEGATE_RetVal_OneParam(AActor*, FModDrumGetRequestDelegate, AActor*);
 DECLARE_DELEGATE_RetVal_OneParam(FLinearColor, FDrumColorRequestDelegate, EModDrumType);
 DECLARE_DELEGATE_RetVal(ECollisionChannel,FInterfaceLaserChannelRequestDelegate);
+DECLARE_DELEGATE_OneParam(FRequestManipulationModeSwitchDelegate,bool);
+DECLARE_DELEGATE_RetVal_OneParam(bool,FHighwayTrackOverrideSetDelegate,UClass*);
+DECLARE_DELEGATE(FDisableHighwayTrackOverride);
+DECLARE_DELEGATE_RetVal_TwoParams(bool,FHighwayNoteOverrideSetDelegate,UClass*,UClass*);
+DECLARE_DELEGATE(FDisableHighwayNoteOverride);
 /**
  * 
  */
@@ -91,7 +95,44 @@ public:
 	*/
 	UFUNCTION(BlueprintCallable)
 	ECollisionChannel RequestLaserInteractionChannel();
+	
+	/**  Call this function to set the class to override the highway track
+	 *  Beware that this class should be a child class of PDMHighwayTrackOverride class
+	 *
+	 *  @return returns true if override is successful, override will fail if track has already
+	 *  been overridden
+	*/
+	UFUNCTION(BlueprintCallable)
+	bool SetHighwayTrackOverrideClass(UClass* TrackOverrideClass);
 
+	/**  Call this function to set the class to override the highway notes
+	*  Beware that this class should be a child class of PDMHighwayNoteOverride class
+	*	If you wish to override only one class, you can pass nullptr as an argument for the other.
+	*	
+	*  @return returns true if override is successful, override will fail if any one of the notes has already
+	*  been overridden
+	*/
+	UFUNCTION(BlueprintCallable)
+	bool SetHighwayNoteOverrideClasses(UClass* CircleNoteOverride , UClass* RectangleClassOverride);
+
+	/**  Call this function to disable Highway Track override
+	*  
+	*/
+	UFUNCTION(BlueprintCallable)
+	void DisableHighwayTrackOverride();
+	
+	/**  Call this function to disable Highway Noteoverride
+    *  
+    */
+	UFUNCTION(BlueprintCallable)
+	void DisableHighwayNoteOverride();
+
+	/**  Call this function to switch between play mode and manipulation mdoe
+	*  Play Mode refers to player having drumsticks in hands and manipulation mode
+	*  is the state in which player has controllers to manipulate the environment
+	*/
+	UFUNCTION(BlueprintCallable)
+	void RequestManipulationModeSwitch(bool IsManipulationModeOn);
 	
 	/**  DO NOT CALL-HANDLED BY MAIN APP
 	*/
@@ -102,12 +143,7 @@ public:
 	*/
 	UFUNCTION(BlueprintCallable)
 	void RemoveActiveDrumForMod(AActor* DrumActor){ActiveDrums.Remove(DrumActor);};
-
-	/** Broadcast this to request manipulation mode switch from the main app.
-	 * Example: Broadcast with "false" to switch to drum sticks automatically once you start a mod game.
-	*/
-	UPROPERTY(BlueprintAssignable, BlueprintCallable)
-	FManipulationModeSwitchRequestDelegate ManipulationModeSwitchDelegate;
+	
 
 	/** Subscribe to this to listen to drum hits including hits from the drums that does not belong to your mod. 
 	 *	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app both for mod and non-mod drums
@@ -203,6 +239,31 @@ public:
 	*  DO NOT BIND OR CALL MANUALLY
 	*/
 	FInterfaceLaserChannelRequestDelegate InterfaceLaserChannelRequestDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FHighwayTrackOverrideSetDelegate HighwayTrackOverrideSetDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FDisableHighwayTrackOverride DisableHighwayTrackOverrideDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FRequestManipulationModeSwitchDelegate RequestManipulationModeSwitchDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FHighwayNoteOverrideSetDelegate HighwayNoteOverrideSetDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FDisableHighwayNoteOverride DisableHighwayNoteOverrideDelegate;
 private:
 
 	/**  This map contains references to all the active drum actors in the app
@@ -215,4 +276,6 @@ private:
 	*/
 	UPROPERTY()
 	TMap<AActor*, FActiveDrumData> ActiveDrums;
+
+
 };

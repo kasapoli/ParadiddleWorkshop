@@ -51,4 +51,47 @@ ECollisionChannel UModCommunicationSubsystem::RequestLaserInteractionChannel()
 	return ECollisionChannel::ECC_WorldDynamic;
 }
 
+bool UModCommunicationSubsystem::SetHighwayTrackOverrideClass(UClass* TrackOverrideClass)
+{
+	if (HighwayTrackOverrideSetDelegate.IsBound())
+	{
+		return HighwayTrackOverrideSetDelegate.Execute(TrackOverrideClass);
+	}
+	return false;
+}
+
+bool UModCommunicationSubsystem::SetHighwayNoteOverrideClasses(UClass* CircleNoteOverride,
+	UClass* RectangleClassOverride)
+{
+	if (HighwayNoteOverrideSetDelegate.IsBound())
+	{
+		return HighwayNoteOverrideSetDelegate.Execute(CircleNoteOverride, RectangleClassOverride);
+	}
+	return false;
+}
+
+void UModCommunicationSubsystem::DisableHighwayTrackOverride()
+{
+	if (DisableHighwayTrackOverrideDelegate.IsBound())
+	{
+		DisableHighwayTrackOverrideDelegate.Execute();
+	}
+}
+
+void UModCommunicationSubsystem::DisableHighwayNoteOverride()
+{
+	if (DisableHighwayNoteOverrideDelegate.IsBound())
+	{
+		DisableHighwayNoteOverrideDelegate.Execute();
+	}
+}
+
+void UModCommunicationSubsystem::RequestManipulationModeSwitch(bool IsManipulationModeOn)
+{
+	if (RequestManipulationModeSwitchDelegate.IsBound())
+	{
+		RequestManipulationModeSwitchDelegate.Execute(IsManipulationModeOn);
+	}
+}
+
 
