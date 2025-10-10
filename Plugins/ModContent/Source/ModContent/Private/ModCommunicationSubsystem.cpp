@@ -70,6 +70,24 @@ bool UModCommunicationSubsystem::SetHighwayNoteOverrideClasses(UClass* CircleNot
 	return false;
 }
 
+UClass* UModCommunicationSubsystem::GetHighwayTrackOverrideClass()
+{
+	if (GetTrackOverrideDelegate.IsBound())
+	{
+		return GetTrackOverrideDelegate.Execute();
+	}
+	return nullptr;
+}
+
+UClass* UModCommunicationSubsystem::GetHighwayNoteOverrideClass(bool IsCircleNote)
+{
+	if (GetNoteOverrideDelegate.IsBound())
+	{
+		return GetNoteOverrideDelegate.Execute(IsCircleNote);
+	}
+	return nullptr;
+}
+
 void UModCommunicationSubsystem::DisableHighwayTrackOverride()
 {
 	if (DisableHighwayTrackOverrideDelegate.IsBound())

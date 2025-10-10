@@ -18,6 +18,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FFireModeSwitched, bool, IsFireModeO
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongTimeReset, float, NewSongTime);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongPauseSwitch,bool,IsPaused);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongNoteHit, bool, IsNoteMissed);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongNoteHittable, FLinearColor ,NoteColor);
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FModMapLoadCalled,const TSoftObjectPtr<UWorld>&, ModMap);
@@ -34,6 +35,8 @@ DECLARE_DELEGATE_RetVal_OneParam(bool,FHighwayTrackOverrideSetDelegate,UClass*);
 DECLARE_DELEGATE(FDisableHighwayTrackOverride);
 DECLARE_DELEGATE_RetVal_TwoParams(bool,FHighwayNoteOverrideSetDelegate,UClass*,UClass*);
 DECLARE_DELEGATE(FDisableHighwayNoteOverride);
+DECLARE_DELEGATE_RetVal_OneParam(UClass*,FGetNoteOverride,bool);
+DECLARE_DELEGATE_RetVal(UClass*, FGetTrackOverride);
 /**
  * 
  */
@@ -114,6 +117,24 @@ public:
 	*/
 	UFUNCTION(BlueprintCallable)
 	bool SetHighwayNoteOverrideClasses(UClass* CircleNoteOverride , UClass* RectangleClassOverride);
+
+	/**  Call this function to get the current Track Override class
+	*  It will return nullptr if there is no active override
+	*	Might return override classes of other active mods. Beware when casting.
+	*	
+	*  @return current active track override  class, nullptr if none
+	*/
+	UFUNCTION(BlueprintCallable)
+	UClass* GetHighwayTrackOverrideClass();
+	
+	/**  Call this function to get the current Note Override class
+	*  It will return nullptr if there is no active override
+	*	Might return override classes of other active mods. Beware when casting.
+	*	
+	*  @return current active note override  class, nullptr if none
+	*/
+	UFUNCTION(BlueprintCallable)
+	UClass* GetHighwayNoteOverrideClass(bool IsCircleNote);
 
 	/**  Call this function to disable Highway Track override
 	*  
@@ -206,6 +227,12 @@ public:
 	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FSongNoteHit SongNoteHit;
 
+	/** Broadcasted when a song note has entered the hit window 
+	*	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app 
+	*/
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
+	FSongNoteHittable SongNoteHittable;
+
 	//MAIN GAME FUNCTIONS VARIABLES AND DELEGATES
 
 	UPROPERTY(BlueprintReadWrite)
@@ -264,6 +291,16 @@ public:
 	*  DO NOT BIND OR CALL MANUALLY
 	*/
 	FDisableHighwayNoteOverride DisableHighwayNoteOverrideDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FGetNoteOverride GetNoteOverrideDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FGetTrackOverride GetTrackOverrideDelegate;
 private:
 
 	/**  This map contains references to all the active drum actors in the app

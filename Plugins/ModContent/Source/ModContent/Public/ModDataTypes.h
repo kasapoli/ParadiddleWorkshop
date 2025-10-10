@@ -113,22 +113,74 @@ enum class EModDrumType:uint8
 UENUM(BlueprintType)
 enum class ESoundAsset:uint8
 {
-	Bongo,
+	//SMM Kit
+	SMM_China15,
+	SMM_Crash13,
+	SMM_Crash15,
+	SMM_Crash16,
+	SMM_Crash17,
+	SMM_Ride17_Main,
+	SMM_Ride17_Bell,
+	SMM_Ride20_Main,
+	SMM_Ride20_Bell,
+	SMM_Tom1,
+	SMM_Tom2,
+	SMM_Tom3,
+	SMM_Hihat_Open,
+	SMM_Hihat_Close,
+
+	
+	//Aasi Kit
+	Aasi_China8,
+	Aasi_China10,
+	Aasi_China18,
+	Aasi_Crash_High,
+	Aasi_Crash_Low,
+	Aasi_Hihat_Open,
+	Aasi_Hihat_Close,
+	Aasi_Kick,
+	Aasi_Ride_Bell,
+	Aasi_Ride_Main,
+	Aasi_Snare,
+	Aasi_Snare_OffCenter,
+	Aasi_Snare_Rim,
+	Aasi_Tom1,
+	Aasi_Tom3,
+
+	//Crocell Kit
+	Crocell_ChinaL,
+	Crocell_ChinaR,
+	Crocell_FloorTom1,
+	Crocell_FloorTom2,
+	Crocell_Hihat_Open,
+	Crocell_Hihat_Close,
+	Crocell_CrashL,
+	Crocell_CrashR,
+	Croceell_RackTom1,
+	Croceell_RackTom2,
+	Crocell_Ride_Main,
+	Crocell_Ride_Bell,
+	Crocell_Snare,
+
+	//DRS_Kit
+	DRS_Hihat_Open,
+	DRS_Hihat_Close,
+	DRS_Kick,
+	DRS_Snare,
+	DRS_Tom1,
+	DRS_Tom2,
+	DRS_Tom3,
+
+	//Other instruments
+	Bongo_High,
+	Bongo_Low,
+	Gong,
 	Cowbell,
 	Glockenspiel,
 	Triangle,
-	China15,
-	Crash13,
-	Crash15,
-	Crash17,
-	Snare,
-	FloorTom,
-	TealTom,
-	GreenTom,
-	Kick,
-	Ride17,
-	Ride20,
-	HiHat,
+
+	//No sound asset
+	None,
 	
 };
 
