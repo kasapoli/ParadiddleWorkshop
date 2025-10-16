@@ -22,12 +22,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ModGames")
 	TArray<FModWorldData> ModGamesData;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Highway Override")
-	TArray<UClass*> HighwayTrackOverrideClasses;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Highway Override")
-	TArray<UClass*> RectangleNoteClasses;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Highway Override")
-	TArray<UClass*> CircleNoteClasses;
+	TArray<FHighwayOverrideData> HighwayOverrideData;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Drums")
-	TArray<UClass*> CustomDrumClasses;
-	
+    TArray<UClass*> CustomDrumClasses;
 };

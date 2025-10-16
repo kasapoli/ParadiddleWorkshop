@@ -51,39 +51,39 @@ ECollisionChannel UModCommunicationSubsystem::RequestLaserInteractionChannel()
 	return ECollisionChannel::ECC_WorldDynamic;
 }
 
-bool UModCommunicationSubsystem::SetHighwayTrackOverrideClass(UClass* TrackOverrideClass)
+bool UModCommunicationSubsystem::SetHighwayTrackOverrideClass(UClass* TrackOverrideClass, UClass* KickTrackOverrideClass)
 {
 	if (HighwayTrackOverrideSetDelegate.IsBound())
 	{
-		return HighwayTrackOverrideSetDelegate.Execute(TrackOverrideClass);
+		return HighwayTrackOverrideSetDelegate.Execute(TrackOverrideClass, KickTrackOverrideClass);
 	}
 	return false;
 }
 
 bool UModCommunicationSubsystem::SetHighwayNoteOverrideClasses(UClass* CircleNoteOverride,
-	UClass* RectangleClassOverride)
+	UClass* RectangleClassOverride, UClass* KickNoteOverrideClass)
 {
 	if (HighwayNoteOverrideSetDelegate.IsBound())
 	{
-		return HighwayNoteOverrideSetDelegate.Execute(CircleNoteOverride, RectangleClassOverride);
+		return HighwayNoteOverrideSetDelegate.Execute(CircleNoteOverride, RectangleClassOverride ,KickNoteOverrideClass);
 	}
 	return false;
 }
 
-UClass* UModCommunicationSubsystem::GetHighwayTrackOverrideClass()
+UClass* UModCommunicationSubsystem::GetHighwayTrackOverrideClass(EModTrackType TrackType)
 {
 	if (GetTrackOverrideDelegate.IsBound())
 	{
-		return GetTrackOverrideDelegate.Execute();
+		return GetTrackOverrideDelegate.Execute(TrackType);
 	}
 	return nullptr;
 }
 
-UClass* UModCommunicationSubsystem::GetHighwayNoteOverrideClass(bool IsCircleNote)
+UClass* UModCommunicationSubsystem::GetHighwayNoteOverrideClass(EModNoteType NoteType)
 {
 	if (GetNoteOverrideDelegate.IsBound())
 	{
-		return GetNoteOverrideDelegate.Execute(IsCircleNote);
+		return GetNoteOverrideDelegate.Execute(NoteType);
 	}
 	return nullptr;
 }

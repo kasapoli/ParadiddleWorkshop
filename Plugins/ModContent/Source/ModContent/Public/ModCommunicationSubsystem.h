@@ -31,12 +31,13 @@ DECLARE_DELEGATE_RetVal_OneParam(AActor*, FModDrumGetRequestDelegate, AActor*);
 DECLARE_DELEGATE_RetVal_OneParam(FLinearColor, FDrumColorRequestDelegate, EModDrumType);
 DECLARE_DELEGATE_RetVal(ECollisionChannel,FInterfaceLaserChannelRequestDelegate);
 DECLARE_DELEGATE_OneParam(FRequestManipulationModeSwitchDelegate,bool);
-DECLARE_DELEGATE_RetVal_OneParam(bool,FHighwayTrackOverrideSetDelegate,UClass*);
+DECLARE_DELEGATE_RetVal_TwoParams(bool,FHighwayTrackOverrideSetDelegate,UClass*,UClass*);
 DECLARE_DELEGATE(FDisableHighwayTrackOverride);
-DECLARE_DELEGATE_RetVal_TwoParams(bool,FHighwayNoteOverrideSetDelegate,UClass*,UClass*);
+DECLARE_DELEGATE_RetVal_ThreeParams(bool,FHighwayNoteOverrideSetDelegate,UClass*,UClass*,UClass*);
 DECLARE_DELEGATE(FDisableHighwayNoteOverride);
-DECLARE_DELEGATE_RetVal_OneParam(UClass*,FGetNoteOverride,bool);
-DECLARE_DELEGATE_RetVal(UClass*, FGetTrackOverride);
+DECLARE_DELEGATE_RetVal_OneParam(UClass*,FGetNoteOverride,EModNoteType);
+DECLARE_DELEGATE_RetVal_OneParam(UClass*, FGetTrackOverride, EModTrackType);
+
 /**
  * 
  */
@@ -106,7 +107,7 @@ public:
 	 *  been overridden
 	*/
 	UFUNCTION(BlueprintCallable)
-	bool SetHighwayTrackOverrideClass(UClass* TrackOverrideClass);
+	bool SetHighwayTrackOverrideClass(UClass* DefaultTrackOverrideClass, UClass* KickTrackOverrideClass);
 
 	/**  Call this function to set the class to override the highway notes
 	*  Beware that this class should be a child class of PDMHighwayNoteOverride class
@@ -116,7 +117,7 @@ public:
 	*  been overridden
 	*/
 	UFUNCTION(BlueprintCallable)
-	bool SetHighwayNoteOverrideClasses(UClass* CircleNoteOverride , UClass* RectangleClassOverride);
+	bool SetHighwayNoteOverrideClasses(UClass* CircleNoteOverride , UClass* RectangleClassOverride, UClass* KickNoteOverrideClass);
 
 	/**  Call this function to get the current Track Override class
 	*  It will return nullptr if there is no active override
@@ -125,7 +126,7 @@ public:
 	*  @return current active track override  class, nullptr if none
 	*/
 	UFUNCTION(BlueprintCallable)
-	UClass* GetHighwayTrackOverrideClass();
+	UClass* GetHighwayTrackOverrideClass(EModTrackType TrackType);
 	
 	/**  Call this function to get the current Note Override class
 	*  It will return nullptr if there is no active override
@@ -134,7 +135,7 @@ public:
 	*  @return current active note override  class, nullptr if none
 	*/
 	UFUNCTION(BlueprintCallable)
-	UClass* GetHighwayNoteOverrideClass(bool IsCircleNote);
+	UClass* GetHighwayNoteOverrideClass(EModNoteType NoteType);
 
 	/**  Call this function to disable Highway Track override
 	*  

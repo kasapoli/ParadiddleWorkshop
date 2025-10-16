@@ -111,6 +111,21 @@ enum class EModDrumType:uint8
 };
 
 UENUM(BlueprintType)
+enum class  EModNoteType : uint8
+{
+	Circle,
+	Rectangle,
+	Kick
+};
+
+UENUM(BlueprintType)
+enum class EModTrackType : uint8
+{
+	Default,
+	Kick
+};
+
+UENUM(BlueprintType)
 enum class ESoundAsset:uint8
 {
 	//SMM Kit
@@ -217,6 +232,38 @@ struct FActiveDrumData
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	EModDrumType DrumType;
 	
+};
+
+USTRUCT(BlueprintType)
+struct FHighwayOverrideData
+{
+	GENERATED_BODY()
+
+	public:
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	FString FriendlyName;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	FString Description;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UTexture2D* Icon;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UClass* CircleNoteOverride;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UClass* RectangleNoteOverride;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UClass* DefaultTrackOverride;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UClass* KickNoteOverride;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UClass* KickTrackOverride;
 };
 
 
