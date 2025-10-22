@@ -255,6 +255,9 @@ struct FHighwayOverrideData
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UClass* RectangleNoteOverride;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UClass* BeatNoteOverride;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UClass* DefaultTrackOverride;

@@ -60,12 +60,16 @@ bool UModCommunicationSubsystem::SetHighwayTrackOverrideClass(UClass* TrackOverr
 	return false;
 }
 
+
+
 bool UModCommunicationSubsystem::SetHighwayNoteOverrideClasses(UClass* CircleNoteOverride,
-	UClass* RectangleClassOverride, UClass* KickNoteOverrideClass)
+                                                               UClass* RectangleClassOverride,
+                                                               UClass* KickNoteOverrideClass,
+                                                               UClass* BeatNoteOverrideClass)
 {
 	if (HighwayNoteOverrideSetDelegate.IsBound())
 	{
-		return HighwayNoteOverrideSetDelegate.Execute(CircleNoteOverride, RectangleClassOverride ,KickNoteOverrideClass);
+		return HighwayNoteOverrideSetDelegate.Execute(CircleNoteOverride, RectangleClassOverride ,KickNoteOverrideClass,BeatNoteOverrideClass);
 	}
 	return false;
 }
@@ -109,6 +113,57 @@ void UModCommunicationSubsystem::RequestManipulationModeSwitch(bool IsManipulati
 	if (RequestManipulationModeSwitchDelegate.IsBound())
 	{
 		RequestManipulationModeSwitchDelegate.Execute(IsManipulationModeOn);
+	}
+}
+
+AActor* UModCommunicationSubsystem::GetDrumActorOfTrack(AActor* TrackOverrideActor)
+{
+	if (GetDrumActorOfTrackDelegate.IsBound())
+	{
+		return GetDrumActorOfTrackDelegate.Execute(TrackOverrideActor);
+	}
+	return nullptr;
+}
+
+bool UModCommunicationSubsystem::SetStartPointOfTrackManually(AActor* TrackOverrideActor, const FTransform& StartPoint)
+{
+	if (SetTrackStartPointDelegate.IsBound())
+	{
+		return SetTrackStartPointDelegate.Execute(TrackOverrideActor, StartPoint);
+	}
+	return false;
+}
+
+bool UModCommunicationSubsystem::SetEndPointOfTrackManually(AActor* TrackOverrideActor, const FTransform& EndPoint)
+{
+	if (SetTrackEndPointDelegate.IsBound())
+	{
+		return SetTrackEndPointDelegate.Execute(TrackOverrideActor, EndPoint);
+	}
+	return false;
+}
+
+void UModCommunicationSubsystem::SetStickMeshOverride(UStaticMesh* Mesh)
+{
+	if (RequestStickMeshOverrideDelegate.IsBound())
+	{
+		RequestStickMeshOverrideDelegate.Execute(Mesh);
+	}
+}
+
+void UModCommunicationSubsystem::SetStickMaterialOverride(UMaterialInterface* Material, int MaterialIndex)
+{
+	if (RequestStickMaterialOverrideDelegate.IsBound())
+	{
+		RequestStickMaterialOverrideDelegate.Execute(Material, MaterialIndex);
+	}
+}
+
+void UModCommunicationSubsystem::ClearStickOverrides()
+{
+	if (DisableStickOverridesDelegate.IsBound())
+	{
+		DisableStickOverridesDelegate.Execute();
 	}
 }
 

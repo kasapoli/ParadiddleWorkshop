@@ -33,10 +33,16 @@ DECLARE_DELEGATE_RetVal(ECollisionChannel,FInterfaceLaserChannelRequestDelegate)
 DECLARE_DELEGATE_OneParam(FRequestManipulationModeSwitchDelegate,bool);
 DECLARE_DELEGATE_RetVal_TwoParams(bool,FHighwayTrackOverrideSetDelegate,UClass*,UClass*);
 DECLARE_DELEGATE(FDisableHighwayTrackOverride);
-DECLARE_DELEGATE_RetVal_ThreeParams(bool,FHighwayNoteOverrideSetDelegate,UClass*,UClass*,UClass*);
+DECLARE_DELEGATE_RetVal_FourParams(bool,FHighwayNoteOverrideSetDelegate,UClass*,UClass*,UClass*,UClass*);
 DECLARE_DELEGATE(FDisableHighwayNoteOverride);
 DECLARE_DELEGATE_RetVal_OneParam(UClass*,FGetNoteOverride,EModNoteType);
 DECLARE_DELEGATE_RetVal_OneParam(UClass*, FGetTrackOverride, EModTrackType);
+DECLARE_DELEGATE_RetVal_OneParam(AActor*, FGetDrumActorOfTrack, AActor*);
+DECLARE_DELEGATE_RetVal_TwoParams(bool, FSetTrackStartPoint, AActor*,const FTransform&);
+DECLARE_DELEGATE_RetVal_TwoParams(bool, FSetTrackEndPoint, AActor*,const FTransform&);
+DECLARE_DELEGATE_OneParam(FRequestStickMeshOverride, UStaticMesh*);
+DECLARE_DELEGATE_TwoParams(FRequestStickMaterialOverride, UMaterialInterface*,int);
+DECLARE_DELEGATE(FDisableStickOverrides);
 
 /**
  * 
@@ -117,7 +123,7 @@ public:
 	*  been overridden
 	*/
 	UFUNCTION(BlueprintCallable)
-	bool SetHighwayNoteOverrideClasses(UClass* CircleNoteOverride , UClass* RectangleClassOverride, UClass* KickNoteOverrideClass);
+	bool SetHighwayNoteOverrideClasses(UClass* CircleNoteOverride , UClass* RectangleClassOverride, UClass* KickNoteOverrideClass, UClass* BeatNoteOverrideClass);
 
 	/**  Call this function to get the current Track Override class
 	*  It will return nullptr if there is no active override
@@ -155,6 +161,45 @@ public:
 	*/
 	UFUNCTION(BlueprintCallable)
 	void RequestManipulationModeSwitch(bool IsManipulationModeOn);
+
+	/**  Call this function to get the Drum Actor with which the track is associated.
+	 *  @return : Returns the drum actor defined in the main app. DO NOT cast to any drum override classes.
+	 *  Use GetModDrum() function to access the actor, which can be cast
+	*/
+	UFUNCTION(BlueprintCallable)
+	AActor* GetDrumActorOfTrack(AActor* TrackOverrideActor);
+
+	/**  Call this function to set the start point of a track manually. Start point refers to the position from which
+	 *  notes start moving on the highway. Setting a track position manually will prohibit some highway functions such as
+	 *  automatic lane reordering based on drum positions. 
+	*  @return : Returns true if the track position is set. 
+	*/
+	UFUNCTION(BlueprintCallable)
+	bool SetStartPointOfTrackManually(AActor* TrackOverrideActo, const FTransform& StartPoint);
+
+	/**  Call this function to set the end point of a track manually. End point refers to the position, to which notes move to get hit.
+	 *  Setting a track position manually will prohibit some highway functions such as automatic lane reordering based on drum positions. 
+	*  @return : Returns true if the track position is set. 
+	*/
+	UFUNCTION(BlueprintCallable)
+	bool SetEndPointOfTrackManually(AActor* TrackOverrideActor, const FTransform& EndPoint);
+
+	/**  Call this function to override the mesh used for drum sticks
+	*/
+	UFUNCTION(BlueprintCallable)
+	void SetStickMeshOverride(UStaticMesh* Mesh);
+
+	/**  Call this function to override the material of the drum sticks at the given index. Index 0 will be used if
+	 *  the given index is out of the bounds of the material array of the stick mesh. 
+	*/
+	UFUNCTION(BlueprintCallable)
+	void SetStickMaterialOverride(UMaterialInterface* Material, int MaterialIndex = 0);
+
+	/**  Call this function to clear all overrides applied to the drum sticks and revert to the basic skin.
+	 *  Can be useful when switching between to overrides.
+	*/
+	UFUNCTION(BlueprintCallable)
+	void ClearStickOverrides();
 	
 	/**  DO NOT CALL-HANDLED BY MAIN APP
 	*/
@@ -302,6 +347,36 @@ public:
 	*  DO NOT BIND OR CALL MANUALLY
 	*/
 	FGetTrackOverride GetTrackOverrideDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FGetDrumActorOfTrack GetDrumActorOfTrackDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FSetTrackEndPoint SetTrackEndPointDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FSetTrackStartPoint SetTrackStartPointDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FRequestStickMaterialOverride RequestStickMaterialOverrideDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FRequestStickMeshOverride RequestStickMeshOverrideDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FDisableStickOverrides DisableStickOverridesDelegate;
 private:
 
 	/**  This map contains references to all the active drum actors in the app

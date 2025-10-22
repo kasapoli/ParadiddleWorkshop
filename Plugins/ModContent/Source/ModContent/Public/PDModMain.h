@@ -25,4 +25,8 @@ public:
 	TArray<FHighwayOverrideData> HighwayOverrideData;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Drums")
     TArray<UClass*> CustomDrumClasses;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Sticks")
+	TArray<UStaticMesh*> StickMeshOverrides;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Sticks")
+	TArray<UMaterialInterface*> StickMaterialOverrides;
 };
