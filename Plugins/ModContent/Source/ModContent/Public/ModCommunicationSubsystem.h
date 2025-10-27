@@ -9,7 +9,7 @@
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FModDrumHit,const FModDrumHitStruct&,DrumHitData);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDrumCreated, AActor*, DrumActor);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FDrumCreated, AActor*, DrumActor,FActiveDrumData, DrumData);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDrumRemoved, AActor*, DrumActor);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FSongCreated, FString, SongName, FString, Artist, float, SongLength, FString, Difficulty );
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongFinished,const FModSongResultData&, SongResultData);
@@ -18,6 +18,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FFireModeSwitched, bool, IsFireModeO
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongTimeReset, float, NewSongTime);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongPauseSwitch,bool,IsPaused);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongNoteHit, bool, IsNoteMissed);
+
+//NOT IMPLEMENTED YET
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongNoteHittable, FLinearColor ,NoteColor);
 
 
@@ -201,17 +203,24 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ClearStickOverrides();
 	
-	/**  DO NOT CALL-HANDLED BY MAIN APP
+	/**  --- DO NOT CALL--- HANDLED BY MAIN APP
 	*/
 	UFUNCTION(BlueprintCallable)
-	void AddActiveDrumForMod(AActor* DrumActor, FActiveDrumData DrumData) {ActiveDrums.Add(DrumActor, DrumData);};
+	void AddActiveDrumForMod(AActor* DrumActor, FActiveDrumData DrumData)
+	{
+		ActiveDrums.Add(DrumActor, DrumData);
+		DrumCreated.Broadcast(DrumActor,DrumData);
+	};
 
-	/**  DO NOT CALL-HANDLED BY MAIN APP
+	/**  --- DO NOT CALL--- HANDLED BY MAIN APP
 	*/
 	UFUNCTION(BlueprintCallable)
-	void RemoveActiveDrumForMod(AActor* DrumActor){ActiveDrums.Remove(DrumActor);};
+	void RemoveActiveDrumForMod(AActor* DrumActor)
+	{
+		ActiveDrums.Remove(DrumActor);
+		DrumRemoved.Broadcast(DrumActor);
+	};
 	
-
 	/** Subscribe to this to listen to drum hits including hits from the drums that does not belong to your mod. 
 	 *	ONLY SUBSCRIBE, DO NOT BROADCAST - Only called from the main app both for mod and non-mod drums
 	 */

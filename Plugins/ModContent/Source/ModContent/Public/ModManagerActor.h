@@ -37,11 +37,29 @@ public:
 	UPDModMain* GetModData_FromMain() {return ModData;};
 
 	/**  This function will be called by the main app once the Mod gets loaded.
-	 *  Override it in you Mod Class to handle Mod initialization
+	 *  Override it in your Mod Class to handle Mod initialization
 	*/
 	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable, Category = "MainAppOnly")
 	void InitMod_FromMain(AActor* PawnActor, ECollisionChannel UICollisionChannel);
 
+	/**  This function will be called by the main app before the mod gets disabled
+	*  Override it in your Mod Class to handle Mod disabling
+	*/
+	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable, Category = "MainAppOnly")
+	void DisableMod_FromMain();
+
+	/** Set to true if the mod has UI elements such as menus that should be enabled/disabled. This variable will affect
+	 * the way the main app assigns UI functionality for your mod
+	 */
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Mod Features")
+	bool bHasSwitchableUI = true;
+
+	/**  This function will be called by the main app to switch mod UI active status
+	*  Override it in your Mod Class to handle UI enabling/disabling
+	*/
+	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable, Category = "MainAppOnly")
+	void SwitchModUIActiveStatus_FromMain();
+	
 private:
 	UPROPERTY(EditAnywhere)
 	UPDModMain* ModData;
