@@ -143,11 +143,11 @@ bool UModCommunicationSubsystem::SetEndPointOfTrackManually(AActor* TrackOverrid
 	return false;
 }
 
-void UModCommunicationSubsystem::SetStickMeshOverride(UStaticMesh* Mesh)
+void UModCommunicationSubsystem::SetStickMeshOverride(UStaticMesh* Mesh,const FTransform& TransformRelativeToReferenceMesh)
 {
 	if (RequestStickMeshOverrideDelegate.IsBound())
 	{
-		RequestStickMeshOverrideDelegate.Execute(Mesh);
+		RequestStickMeshOverrideDelegate.Execute(Mesh,TransformRelativeToReferenceMesh);
 	}
 }
 

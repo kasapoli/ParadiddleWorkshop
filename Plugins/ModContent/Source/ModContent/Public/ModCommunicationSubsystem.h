@@ -42,7 +42,7 @@ DECLARE_DELEGATE_RetVal_OneParam(UClass*, FGetTrackOverride, EModTrackType);
 DECLARE_DELEGATE_RetVal_OneParam(AActor*, FGetDrumActorOfTrack, AActor*);
 DECLARE_DELEGATE_RetVal_TwoParams(bool, FSetTrackStartPoint, AActor*,const FTransform&);
 DECLARE_DELEGATE_RetVal_TwoParams(bool, FSetTrackEndPoint, AActor*,const FTransform&);
-DECLARE_DELEGATE_OneParam(FRequestStickMeshOverride, UStaticMesh*);
+DECLARE_DELEGATE_TwoParams(FRequestStickMeshOverride, UStaticMesh*,const FTransform&);
 DECLARE_DELEGATE_TwoParams(FRequestStickMaterialOverride, UMaterialInterface*,int);
 DECLARE_DELEGATE(FDisableStickOverrides);
 
@@ -177,7 +177,7 @@ public:
 	*  @return : Returns true if the track position is set. 
 	*/
 	UFUNCTION(BlueprintCallable)
-	bool SetStartPointOfTrackManually(AActor* TrackOverrideActo, const FTransform& StartPoint);
+	bool SetStartPointOfTrackManually(AActor* TrackOverrideActor, const FTransform& StartPoint);
 
 	/**  Call this function to set the end point of a track manually. End point refers to the position, to which notes move to get hit.
 	 *  Setting a track position manually will prohibit some highway functions such as automatic lane reordering based on drum positions. 
@@ -187,9 +187,11 @@ public:
 	bool SetEndPointOfTrackManually(AActor* TrackOverrideActor, const FTransform& EndPoint);
 
 	/**  Call this function to override the mesh used for drum sticks
+	 *  @param  Mesh to be used as override mesh
+	 *  @param TransformRelativeToReferenceMesh relative transform to the reference mesh provided in the ParadiddleWorkshop project
 	*/
 	UFUNCTION(BlueprintCallable)
-	void SetStickMeshOverride(UStaticMesh* Mesh);
+	void SetStickMeshOverride(UStaticMesh* Mesh, const FTransform& TransformRelativeToReferenceMesh);
 
 	/**  Call this function to override the material of the drum sticks at the given index. Index 0 will be used if
 	 *  the given index is out of the bounds of the material array of the stick mesh. 
