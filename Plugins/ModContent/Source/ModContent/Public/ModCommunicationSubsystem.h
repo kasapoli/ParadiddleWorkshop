@@ -18,9 +18,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FFireModeSwitched, bool, IsFireModeO
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongTimeReset, float, NewSongTime);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongPauseSwitch,bool,IsPaused);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongNoteHit, bool, IsNoteMissed);
-
-//NOT IMPLEMENTED YET
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSongNoteHittable, FLinearColor ,NoteColor);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FSongNoteHittable, FLinearColor ,NoteColor, AActor* ,ParadiddledDrumActor,AActor*, NoteActor);
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FModMapLoadCalled,const TSoftObjectPtr<UWorld>&, ModMap);
@@ -43,8 +41,13 @@ DECLARE_DELEGATE_RetVal_OneParam(AActor*, FGetDrumActorOfTrack, AActor*);
 DECLARE_DELEGATE_RetVal_TwoParams(bool, FSetTrackStartPoint, AActor*,const FTransform&);
 DECLARE_DELEGATE_RetVal_TwoParams(bool, FSetTrackEndPoint, AActor*,const FTransform&);
 DECLARE_DELEGATE_TwoParams(FRequestStickMeshOverride, UStaticMesh*,const FTransform&);
+DECLARE_DELEGATE_TwoParams(FRequestHeadsetMeshOverride, UStaticMesh*,const FTransform&);
 DECLARE_DELEGATE_TwoParams(FRequestStickMaterialOverride, UMaterialInterface*,int);
+DECLARE_DELEGATE_TwoParams(FRequestHeadsetMaterialOverride, UMaterialInterface*,int);
 DECLARE_DELEGATE(FDisableStickOverrides);
+DECLARE_DELEGATE(FDisableHeadsetOverrides);
+DECLARE_DELEGATE_RetVal(bool,FRequestDeleteCurrentSong);
+DECLARE_DELEGATE_RetVal_OneParam(bool,FRequestSongPauseSwitch,bool);
 
 /**
  * 
@@ -193,17 +196,52 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetStickMeshOverride(UStaticMesh* Mesh, const FTransform& TransformRelativeToReferenceMesh);
 
+	/**  Call this function to override the mesh used for headset
+	*  @param  Mesh to be used as override mesh
+	*  @param TransformRelativeToReferenceMesh relative transform to the reference mesh provided in the ParadiddleWorkshop project
+	*/
+	UFUNCTION(BlueprintCallable)
+	void SetHeadsetMeshOverride(UStaticMesh* Mesh, const FTransform& TransformRelativeToReferenceMesh);
+
 	/**  Call this function to override the material of the drum sticks at the given index. Index 0 will be used if
-	 *  the given index is out of the bounds of the material array of the stick mesh. 
+	 *  the given index is out of the bounds of the material array of the stick mesh.
+	 *  @param Material material to be applied
+	 *  @param MaterialIndex index of the material to which new material will be applied. 0 by default
 	*/
 	UFUNCTION(BlueprintCallable)
 	void SetStickMaterialOverride(UMaterialInterface* Material, int MaterialIndex = 0);
+
+	/**  Call this function to override the material of the drum sticks at the given index.
+	 *  @param Material material to be applied
+	 *  @param MaterialIndex index of the material to which new material will be applied. 0 by default
+	*/
+	UFUNCTION(BlueprintCallable)
+	void SetHeadsetMaterialOverride(UMaterialInterface* Material, int MaterialIndex = 0);
 
 	/**  Call this function to clear all overrides applied to the drum sticks and revert to the basic skin.
 	 *  Can be useful when switching between to overrides.
 	*/
 	UFUNCTION(BlueprintCallable)
 	void ClearStickOverrides();
+	
+	/**  Call this function to clear all overrides applied to the headset mesh.
+	 *  Can be useful when switching between to overrides.
+	*/
+	UFUNCTION(BlueprintCallable)
+	void ClearHeadsetOverrides();
+	
+	/**  Call this function to delete the active song.
+	*  @return Returns true if a song has been found and successfully deleted
+	*/
+	UFUNCTION(BlueprintCallable)
+	bool RequestDeleteCurrentSong();
+
+	/**  Call this switch the pause state of the current song.
+	 *  @param IsPaused the desired pause state. True for paused. 
+	*  @return Returns true if a song has been found and the pause state has been successfully switched
+	*/
+	UFUNCTION(BlueprintCallable)
+	bool RequestSongPauseSwitch(bool IsPaused);
 	
 	/**  --- DO NOT CALL--- HANDLED BY MAIN APP
 	*/
@@ -388,6 +426,31 @@ public:
 	*  DO NOT BIND OR CALL MANUALLY
 	*/
 	FDisableStickOverrides DisableStickOverridesDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FRequestHeadsetMeshOverride RequestHeadsetMeshOverrideDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FRequestHeadsetMaterialOverride RequestHeadsetMaterialOverrideDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FDisableHeadsetOverrides DisableHeadsetOverridesDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FRequestDeleteCurrentSong RequestDeleteCurrentSongDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FRequestSongPauseSwitch RequestSongPauseSwitchDelegate;
 private:
 
 	/**  This map contains references to all the active drum actors in the app

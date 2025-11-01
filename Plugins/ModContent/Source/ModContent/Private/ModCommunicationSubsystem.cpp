@@ -151,11 +151,28 @@ void UModCommunicationSubsystem::SetStickMeshOverride(UStaticMesh* Mesh,const FT
 	}
 }
 
+void UModCommunicationSubsystem::SetHeadsetMeshOverride(UStaticMesh* Mesh,
+	const FTransform& TransformRelativeToReferenceMesh)
+{
+	if (RequestHeadsetMeshOverrideDelegate.IsBound())
+	{
+		RequestHeadsetMeshOverrideDelegate.Execute(Mesh,TransformRelativeToReferenceMesh);
+	}
+}
+
 void UModCommunicationSubsystem::SetStickMaterialOverride(UMaterialInterface* Material, int MaterialIndex)
 {
 	if (RequestStickMaterialOverrideDelegate.IsBound())
 	{
 		RequestStickMaterialOverrideDelegate.Execute(Material, MaterialIndex);
+	}
+}
+
+void UModCommunicationSubsystem::SetHeadsetMaterialOverride(UMaterialInterface* Material, int MaterialIndex)
+{
+	if (RequestHeadsetMaterialOverrideDelegate.IsBound())
+	{
+		RequestHeadsetMaterialOverrideDelegate.Execute(Material, MaterialIndex);
 	}
 }
 
@@ -165,6 +182,32 @@ void UModCommunicationSubsystem::ClearStickOverrides()
 	{
 		DisableStickOverridesDelegate.Execute();
 	}
+}
+
+void UModCommunicationSubsystem::ClearHeadsetOverrides()
+{
+	if (DisableHeadsetOverridesDelegate.IsBound())
+	{
+		DisableHeadsetOverridesDelegate.Execute();
+	}
+}
+
+bool UModCommunicationSubsystem::RequestDeleteCurrentSong()
+{
+	if (RequestDeleteCurrentSongDelegate.IsBound())
+	{
+		return RequestDeleteCurrentSongDelegate.Execute();
+	}
+	return false;
+}
+
+bool UModCommunicationSubsystem::RequestSongPauseSwitch(bool IsPaused)
+{
+	if (RequestSongPauseSwitchDelegate.IsBound())
+	{
+		return RequestSongPauseSwitchDelegate.Execute(IsPaused);
+	}
+	return false;
 }
 
 
