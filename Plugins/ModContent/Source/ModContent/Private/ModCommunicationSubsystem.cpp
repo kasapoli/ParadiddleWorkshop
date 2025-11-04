@@ -15,6 +15,15 @@ void UModCommunicationSubsystem::LoadModMap(const TSoftObjectPtr<UWorld> MapToLo
 
 }
 
+void UModCommunicationSubsystem::AddModMapToMapList(const TSoftObjectPtr<UWorld>& MapToAdd, AActor* ModManagerActor,
+	const FString& MapName, UTexture2D* MapIcon)
+{
+	if (AddMapToListRequestDelegate.IsBound())
+	{
+		AddMapToListRequestDelegate.Execute(MapToAdd, ModManagerActor, MapName, MapIcon);
+	}
+}
+
 AActor* UModCommunicationSubsystem::SpawnModDrum(UClass* DrumClass, FVector SpawnPos)
 {
 	if (ModSpawnRequestDelegate.IsBound())

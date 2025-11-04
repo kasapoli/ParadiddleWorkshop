@@ -48,6 +48,7 @@ DECLARE_DELEGATE(FDisableStickOverrides);
 DECLARE_DELEGATE(FDisableHeadsetOverrides);
 DECLARE_DELEGATE_RetVal(bool,FRequestDeleteCurrentSong);
 DECLARE_DELEGATE_RetVal_OneParam(bool,FRequestSongPauseSwitch,bool);
+DECLARE_DELEGATE_FourParams(FAddMapToListRequestDelegate,const TSoftObjectPtr<UWorld>&,AActor*,const FString&,UTexture2D*);
 
 /**
  * 
@@ -63,8 +64,21 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FRealtimeSongData GetCurrentSongData();
 
+	/** Call this function to load a mod map, Paradiddle uses level streaming to switch between environments
+	 * @param MapToLoad Pointer to the Unreal Engine Level to be loaded
+	 */
 	UFUNCTION(BlueprintCallable)
 	void LoadModMap(const TSoftObjectPtr<UWorld> MapToLoad);
+
+	/** Call this function to add your mod map to the map list of the main app. This way, it will be possible to use
+	 * Paradiddle's UI to load your mod maps. This is useful if you would like skip creating your own UI and utilize the existing features.
+	 *@param MapToAdd pointer to the Unreal Engine Level desired to be added.
+	 *@param ModManagerActor pointer to the manager actor of the mod, to be used for mapping
+	 *@param MapName Name to be shown to the users
+	 *@param MapIcon Icon to be shown to the users
+	 */
+	UFUNCTION(BlueprintCallable)
+	void AddModMapToMapList(const TSoftObjectPtr<UWorld>& MapToAdd, AActor* ModManagerActor, const FString& MapName, UTexture2D* MapIcon);
 
 	/**  Call this  to spawn a mod drum, spawning and registering to Communication Subsystem will be handled by the main app
 	*
@@ -451,6 +465,11 @@ public:
 	*  DO NOT BIND OR CALL MANUALLY
 	*/
 	FRequestSongPauseSwitch RequestSongPauseSwitchDelegate;
+
+	/**  This delegate is used to communicate with the main app package by the main app
+	*  DO NOT BIND OR CALL MANUALLY
+	*/
+	FAddMapToListRequestDelegate AddMapToListRequestDelegate;
 private:
 
 	/**  This map contains references to all the active drum actors in the app
