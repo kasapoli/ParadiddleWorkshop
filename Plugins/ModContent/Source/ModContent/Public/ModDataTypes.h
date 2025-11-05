@@ -26,6 +26,19 @@ struct FModWorldData
 };
 
 USTRUCT(BlueprintType)
+struct FMeshOverrideData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FTransform RelativeTransform;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UStaticMesh* Mesh;
+	
+};
+
+USTRUCT(BlueprintType)
 struct FRealtimeSongData
 {
 	GENERATED_BODY()

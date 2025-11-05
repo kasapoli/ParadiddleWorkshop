@@ -26,7 +26,11 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category="Drums")
     TArray<UClass*> CustomDrumClasses;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Sticks")
-	TArray<UStaticMesh*> StickMeshOverrides;
+	TArray<FMeshOverrideData> StickMeshOverrides;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Sticks")
 	TArray<UMaterialInterface*> StickMaterialOverrides;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Headset Visual")
+	TArray<FMeshOverrideData> HeadsetMeshOverrides;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Headset Visual")
+	TArray<UMaterialInterface*> HeadsetMaterialOverrides;
 };
