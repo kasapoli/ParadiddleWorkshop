@@ -34,9 +34,13 @@ Despite our best efforts to offer unhindered freedom, there are some rules and c
   
 * **All your mod content should be located in the same directory and a data label should be used to tag this content for packaging:** This is to ensure that all the mod content gets packaged in the same .pak file. If you are familiar with .pak system and packaging you can go for an alternative approach **but following this guide is strongly recommended.** We utilize Data Asset Labels to tag assets to get packaged together. You can find one of these labels already created for you in Game/MyMod/MyModDataAssetLabel. Feel free to rename this and use it or create your own in your mod directory. Please note that this asset label should be located right under your main mod directory. Pushing it to any other subdirectories will cause issues. Some adjustment will have to be made after the creation of the label. 
 <img width="1267" height="498" alt="image" src="https://github.com/user-attachments/assets/92c3a7d5-e644-4019-96f2-f0a8ca489b14" />
+
 **1-Chunk ID:** The id to be used to tag assets that are going to be packaged together. You can use any positive integer other than 0 (Used for anything that is untagged) and 10 (used for the example mod)
+
 **2-Cook Rule:**  Unreal Engine's automatic cook conditions can complicate your process. It is better and safer to use "Always cook"option.
+
 **3-Label Assets in Directory:** Should be set to true as to get all assets under the directory labelled properly.
+
 **4-Include Redirectors:**  It is better to avoid/clean up redirectors but they should be included if they exist.
 If all these settings are done properly, your mod assets will get packaged in the same .pak file and will be available in the project directory once you package it. For example if you package you mod for Windows, you will find the .pak file of your mod in ProjectDirectory/ParadiddleWorkshop/Saved/StagedBuilds/Windows/ParadiddleWorkshop/Content/Paks/pakchunk<Chunk_ID>-Windows.pak. You can then rename this .pak file to comply with the naming convention given above.
 
