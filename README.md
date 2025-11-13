@@ -68,6 +68,7 @@ Here are some visuals from an example case you can find in Game/TestMod/Drums/Te
 <img width="1249" height="486" alt="image" src="https://github.com/user-attachments/assets/1b01ac2f-c2ec-45e8-b691-26e3e22e2447" />
 
 Interface function implementations:
+
 <img width="749" height="508" alt="image" src="https://github.com/user-attachments/assets/615ef120-800e-446e-80e8-4bdecfcca6f3" />
 
 
