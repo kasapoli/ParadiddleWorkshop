@@ -45,9 +45,31 @@ Despite our best efforts to offer unhindered freedom, there are some rules and c
 If all these settings are done properly, your mod assets will get packaged in the same .pak file and will be available in the project directory once you package it. For example if you package you mod for Windows, you will find the .pak file of your mod in ProjectDirectory/ParadiddleWorkshop/Saved/StagedBuilds/Windows/ParadiddleWorkshop/Content/Paks/pakchunk<Chunk_ID>-Windows.pak. You can then rename this .pak file to comply with the naming convention given above.
 
 * **There should be a Mod Manager Actor class in your main mod directory that complies with the naming convention:** We utilize a ModManagerActor (/Script/ModContent.ModManagerActor) class to allow hooking mod content to the main app. This class will be sought for by the main app once your mod gets loaded and an instance of this class will be created. The main app will then call an initialization function within this class to allow you to initialize your mod functionality. For all this to happen, a child class of this ModManagerActor class should be created in your main mod driectory (Game/MyMod) and it should be named <YourModName>ManagerActor, (i.e. for a mod named "MyWonderfulMod" this class should be named "MyWonderfulModManagerActor").
+<img width="652" height="295" alt="image" src="https://github.com/user-attachments/assets/79b73c1d-0323-4348-af0b-f8781301dea4" />
+
 
 * **Using ModData Data Asset as a container for you mod functionality:** Albeit being listed here, this is not compulsory. We have created a Data Asset to help modders keep references to essential assets in order. You can observe the usage of this in the example mod provided in the project.
 
 * **Do not modify common classes:** Do not modify any of the classes provided in Game/Workshop. These do not get packaged with your mod content and any modifications will get lost and cause issues if they are referenced.
 
 * **New C++ classes are not supported:** Due to packaging and safety issues we do not support adding C++ content through mods at the moment. 
+
+### Creating Your First Mod
+
+#### The Manager Actor:
+The compulsory manager actor mentioned in the Rules and Constraints part handles the main functionality of your mod. It has class functions that get called by the main application when certain events occur. In the child class you will create, override these functions to handle the occurance of the pertaining event. You can find more information about these function in /Script/ModContent.ModManagerActor. 
+
+#### Mod Communication Subsystem: 
+This Game Instance Subsystem contains all the functionality you would use to interact with the main application. Once you create custom drums, you can request the main application to spawn them. You will also use this system to access the existing drums the player has created and stream in your custom level and a lot more. Find out more in Script/ModContent.ModCommunicationSubsystem.
+
+### UI Interactions: 
+You can make any actor you create in your mode interactable with Paradiddle's UI. This means that these actors will be hovered on/off, grabbed and released. To do this you will have to implement the interaction interface we provide in the shared clasess and make the mesh/collider that is going to handle the interaction block the collision channel we use for laser interaction. This is done by requesting the collision channel through the communication subsystem and setting a response to it.
+Here are some visuals from an example case you can find in Game/TestMod/Drums/TestMod_Snare:
+<img width="1249" height="486" alt="image" src="https://github.com/user-attachments/assets/1b01ac2f-c2ec-45e8-b691-26e3e22e2447" />
+
+Interface function implementations:
+<img width="749" height="508" alt="image" src="https://github.com/user-attachments/assets/615ef120-800e-446e-80e8-4bdecfcca6f3" />
+
+
+
+
