@@ -2,7 +2,7 @@
 Base project to create mods for Paradiddle. Includes an example mod.
 
 ## Description
-This project was created to allow the Paradiddle Community to create mods to enhance their experience. We did our best to offer complete creative freedom with the least amount of constraints possible. With access to main features of the app, possible mod functonalities include but definitely are note limited to:
+This project was created to allow the Paradiddle Community to create mods to enhance their experience. We did our best to offer complete creative freedom with the least amount of constraints possible. With access to main features of the app, possible mod functionalities include but definitely are not limited to:
 * Creating custom drums, that support multiple hit zones to make different voices
 * Overriding the visuals of highway tracks and notes
 * A new highway system
@@ -10,6 +10,7 @@ This project was created to allow the Paradiddle Community to create mods to enh
 * Interactable Items, Props, FX
 * Minigames to be played with drums
 * Override Stick and Headset Visuals
+* Functionality based on information retrieved online
 
 ## Getting Started
 
@@ -20,7 +21,7 @@ The project includes:
 * An empty mod directory that can be renamed to serve as your mod. (Game/MyMod)
 * Assets that are necessary to create mods and some mod features, classes to inherit from. (Game/Workshop)
 
-### Mod File and Driectory Structure
+### Mod File and Directory Structure
 Unreal Engine uses .pak files to store and load assets at runtime. Thus, any mod content is expected to be stored in a .pak file. We currently do not support multiple .pak files for one mod, therefore any mod created for Paradiddle should comprise of a single .pak file. 
 
 Any asset or class that is referenced in your mod should be packaged in the .pak file of your mod for it to run without issues. One exception to this, are the assets given in the Game/Workshop directory. These are common assets with the main application and don't need to be packaged along with your mod content. **If you are not experienced in creating and manipulating .pak files, we strongly recommend following the practices mentioned in Rules and Constraints part.**
@@ -71,6 +72,10 @@ Interface function implementations:
 
 <img width="749" height="508" alt="image" src="https://github.com/user-attachments/assets/615ef120-800e-446e-80e8-4bdecfcca6f3" />
 
+### Creating New Environments
+Paradiddle environments are simply Unreal Engine levels, thus any level of your design can be used as a new environment. Make sure to account for highway position if you would like songs to be played in your environmets. Do not load or stream your environments manually and use the Mod Communication Subsystem to call LoadModMap function instead. This will allow the main application to unload the existing level and prepare other assets for the new level. Some form of UI will be necessary to get the request from the user to load your environment. It is possible to create a UI window just like the ones you seen in Paradiddle and let this window carry a menu for your mod. The ways to do this will be explained later in this document. You can also add your custom environments directly to Paradiddle's native environment list by calling AddModMapToMapList function from Mod Communication Subsystem. They will then appear in the environment menu and be chooseable by the users. 
+
+### Creating MiniGames
 
 
 
