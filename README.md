@@ -75,7 +75,8 @@ Interface function implementations:
 ### Creating New Environments
 Paradiddle environments are simply Unreal Engine levels, thus any level of your design can be used as a new environment. Make sure to account for highway position if you would like songs to be played in your environmets. Do not load or stream your environments manually and use the Mod Communication Subsystem to call LoadModMap function instead. This will allow the main application to unload the existing level and prepare other assets for the new level. Some form of UI will be necessary to get the request from the user to load your environment. It is possible to create a UI window just like the ones you seen in Paradiddle and let this window carry a menu for your mod. The ways to do this will be explained later in this document. You can also add your custom environments directly to Paradiddle's native environment list by calling AddModMapToMapList function from Mod Communication Subsystem. They will then appear in the environment menu and be chooseable by the users. 
 
-### Creating MiniGames
+### Accessing Core Features and Utilizing Them (Minigames)
+The infrastructure we have created allows you to access core application features and make use of them. 
 
 
 
