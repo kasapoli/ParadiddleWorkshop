@@ -63,7 +63,7 @@ The compulsory manager actor mentioned in the Rules and Constraints part handles
 #### Mod Communication Subsystem: 
 This Game Instance Subsystem contains all the functionality you would use to interact with the main application. Once you create custom drums, you can request the main application to spawn them. You will also use this system to access the existing drums the player has created and stream in your custom level and a lot more. Find out more in Script/ModContent.ModCommunicationSubsystem.
 
-### UI Interactions: 
+#### UI Interactions: 
 You can make any actor you create in your mode interactable with Paradiddle's UI. This means that these actors will be hovered on/off, grabbed and released. To do this you will have to implement the interaction interface we provide in the shared clasess and make the mesh/collider that is going to handle the interaction block the collision channel we use for laser interaction. This is done by requesting the collision channel through the communication subsystem and setting a response to it.
 Here are some visuals from an example case you can find in Game/TestMod/Drums/TestMod_Snare:
 <img width="1249" height="486" alt="image" src="https://github.com/user-attachments/assets/1b01ac2f-c2ec-45e8-b691-26e3e22e2447" />
@@ -72,11 +72,16 @@ Interface function implementations:
 
 <img width="749" height="508" alt="image" src="https://github.com/user-attachments/assets/615ef120-800e-446e-80e8-4bdecfcca6f3" />
 
-### Creating New Environments
-Paradiddle environments are simply Unreal Engine levels, thus any level of your design can be used as a new environment. Make sure to account for highway position if you would like songs to be played in your environmets. Do not load or stream your environments manually and use the Mod Communication Subsystem to call LoadModMap function instead. This will allow the main application to unload the existing level and prepare other assets for the new level. Some form of UI will be necessary to get the request from the user to load your environment. It is possible to create a UI window just like the ones you seen in Paradiddle and let this window carry a menu for your mod. The ways to do this will be explained later in this document. You can also add your custom environments directly to Paradiddle's native environment list by calling AddModMapToMapList function from Mod Communication Subsystem. They will then appear in the environment menu and be chooseable by the users. 
+#### Creating New Environments
+Paradiddle environments are simply Unreal Engine levels, thus any level of your design can be used as a new environment. 
 
-### Accessing Core Features and Utilizing Them (Minigames)
-The infrastructure we have created allows you to access core application features and make use of them. 
+Make sure to account for highway position if you would like songs to be played in your environmets. Do not load or stream your environments manually and use the Mod Communication Subsystem to call LoadModMap function instead. This will allow the main application to unload the existing level and prepare other assets for the new level. 
 
+Some form of UI will be necessary to get the request from the user to load your environment. It is possible to create a UI window just like the ones you seen in Paradiddle and let this window carry a menu for your mod. The ways to do this will be explained later in this document. Instead of creating oyur own UI, you can also add your custom environments directly to Paradiddle's native environment list by calling AddModMapToMapList function from Mod Communication Subsystem. They will then appear in the environment menu and be chooseable by the users. 
+
+You can find example implementations of both use cases in the example mod's menu widget: Game/TestMod/ModUI/ModMainMenuWidget
+
+#### Accessing Core Features and Utilizing Them (Minigames)
+The infrastructure we have created allows you to access core application features and make use of them. Most of these features and events such as drum hits, song creation, song completion can be accessed through the  Mod Communication Subsystem. Please refer to the source code for detailed explanations on how to subscribe to events and make use of features. 
 
 
