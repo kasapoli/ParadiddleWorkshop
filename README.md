@@ -81,7 +81,9 @@ Some form of UI will be necessary to get the request from the user to load your 
 
 You can find example implementations of both use cases in the example mod's menu widget: Game/TestMod/ModUI/ModMainMenuWidget
 
-#### Accessing Core Features and Utilizing Them (Minigames)
+#### Accessing Core Features 
 The infrastructure we have created allows you to access core application features and make use of them. Most of these features and events such as drum hits, song creation, song completion can be accessed through the  Mod Communication Subsystem. Please refer to the source code for detailed explanations on how to subscribe to events and make use of features. 
-
+Some simple examples can be given as follows:
+* Subscribe to DruHit event to create an environment that responds to the hits made by the player. (e.g. bursts of smoke changing color and density based on hit information)
+* 
 
