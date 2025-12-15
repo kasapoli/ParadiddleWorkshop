@@ -1,3 +1,4 @@
+# --- WARNING: WORK IN PROGRESS, CONTENT OF THIS DOCUMENT MAY CHANGE---
 # Paradiddle Workshop
 Base project to create mods for Paradiddle. Includes an example mod.
 
