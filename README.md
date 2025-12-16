@@ -1,4 +1,4 @@
-# --- WARNING: WORK IN PROGRESS, CONTENT OF THIS DOCUMENT MAY CHANGE---
+# --- WARNING: WORK IN PROGRESS, THE CONTENTS OF THIS DOCUMENT MAY CHANGE---
 # Paradiddle Workshop
 Base project to create mods for Paradiddle. Includes an example mod.
 
@@ -16,7 +16,7 @@ This project was created to allow the Paradiddle Community to create mods to enh
 ## Getting Started
 
 ### Project Structure
-This project was created using Unreal Engine (See Version History for the current engine version). Unreal Engine with the mathcing version should be installed to run it and create mods that are comptaible with the main app. Please note that, even in case the project loads without issues on a different version of Unreal Engine, any created mod might have compatibility issues with the main app. 
+This project was created using Unreal Engine 5.4. You'll need to install Unreal Engine with the matching version to open it and create mods that are comptaible with Paradiddle. Please note that even if the project loads without issues on a different version of Unreal Engine, any created mods might have compatibility issues with the main app. 
 The project includes:
 * An example mod that features simple versions of the application cases mentioned in the description. (Game/TestMod)
 * An empty mod directory that can be renamed to serve as your mod. (Game/MyMod)
@@ -85,6 +85,6 @@ You can find example implementations of both use cases in the example mod's menu
 #### Accessing Core Features 
 The infrastructure we have created allows you to access core application features and make use of them. Most of these features and events such as drum hits, song creation, song completion can be accessed through the  Mod Communication Subsystem. Please refer to the source code for detailed explanations on how to subscribe to events and make use of features. 
 Some simple examples can be given as follows:
-* Subscribe to DruHit event to create an environment that responds to the hits made by the player. (e.g. bursts of smoke changing color and density based on hit information)
-* 
+* Subscribe to DrumHit events to create an environment that responds to the hits made by the player. (e.g. bursts of smoke changing color and density based on hit information)
+* <WIP>
 
