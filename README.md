@@ -32,7 +32,7 @@ The main application will search for mods at startup. The parent directory of mo
 ### Rules and Constraints
 Despite our best efforts to offer unhindered freedom, there are some rules and constraints that modders will have to abide by. Some of these have emerged due to Unreal Engine's structure, some of them originate from our implementation of modding infrastructure. 
 
-* **Your Mod directory and .pak file should bare the same name:** If you would like to name your Mod, "MyFantasticMod" it should be located in Paradiddle/Mods/MyFantasticMod and the content of the mod should be in a .pak file named MyFantasticMod.pak (Paradiddle/Mods/MyFantasticMod/MyFantasticMod.pak).
+* **Your Mod directory and .pak file should have the same name:** If you would like to name your Mod, "MyFantasticMod" it should be located in Paradiddle/Mods/MyFantasticMod and the content of the mod should be in a .pak file named MyFantasticMod.pak (Paradiddle/Mods/MyFantasticMod/MyFantasticMod.pak).
   
 * **All your mod content should be located in the same directory and a data label should be used to tag this content for packaging:** This is to ensure that all the mod content gets packaged in the same .pak file. If you are familiar with .pak system and packaging you can go for an alternative approach **but following this guide is strongly recommended.** We utilize Data Asset Labels to tag assets to get packaged together. You can find one of these labels already created for you in Game/MyMod/MyModDataAssetLabel. Feel free to rename this and use it or create your own in your mod directory. Please note that this asset label should be located right under your main mod directory. Pushing it to any other subdirectories will cause issues. Some adjustment will have to be made after the creation of the label. 
 <img width="1267" height="498" alt="image" src="https://github.com/user-attachments/assets/92c3a7d5-e644-4019-96f2-f0a8ca489b14" />
@@ -86,5 +86,5 @@ You can find example implementations of both use cases in the example mod's menu
 The infrastructure we have created allows you to access core application features and make use of them. Most of these features and events such as drum hits, song creation, song completion can be accessed through the  Mod Communication Subsystem. Please refer to the source code for detailed explanations on how to subscribe to events and make use of features. 
 Some simple examples can be given as follows:
 * Subscribe to DrumHit events to create an environment that responds to the hits made by the player. (e.g. bursts of smoke changing color and density based on hit information)
-* <WIP>
+* -- to be updated --
 
