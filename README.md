@@ -86,26 +86,43 @@ You can find example implementations of both use cases in the example mod's menu
 The infrastructure we have created allows you to access core application features and make use of them. Most of these features and events such as drum hits, song creation, song completion can be accessed through the  Mod Communication Subsystem. Please refer to the source code for detailed explanations on how to subscribe to events and make use of features. 
 Some simple examples can be given as follows:
 * Bind to DrumHit delegate to create an environment that responds to the hits made by the player. (e.g. bursts of smoke changing color and density based on hit information)
-  Example Use Case 1: In my mod level I would like to have dragons that breathe fire when a drum gets hit. Each dragon has an assigned drum. I listen to drum hits and make the matching dragon breathe fire when a drum gets hit.
+
+  **Example Use Case 1**: In my mod level I would like to have dragons that breathe fire when a drum gets hit. Each dragon has an assigned drum. I listen to drum hits and make the matching dragon breathe fire when a drum gets hit.
+  
 * Bind to DrumCreated delegate to get notified when a drum gets created.
-  Example Use Case 1 Continued: In order to make dragons breathe fire when a drum gets created, I have to create them first. In a manager class or equivalent, I listen to DrumCreated event and spawn a Dragon actor every time a drum gets creted.
+  
+  **Example Use Case 1 Continued**: In order to make dragons breathe fire when a drum gets created, I have to create them first. In a manager class or equivalent, I listen to DrumCreated event and spawn a Dragon actor every time a drum gets creted.
+  
 * Bind to DrumRemoved delegate to get notified when a drum gets removed from the scene.
-  Example Use Case 1 Continued: A level is only playable when good maintained. I don't want to keep unnecessary dragons for drums that don't exist anymore. I listen to DrumRemoved event and remove the dragons accordingly.
+  **Example Use Case 1 Continued**: A level is only playable when good maintained. I don't want to keep unnecessary dragons for drums that don't exist anymore. I listen to DrumRemoved event and remove the dragons accordingly.
 
 * Bind to SongCreated delegate to get notified when a song gets created (not started playing).
-  Example Use Case 2: In my mod, I would like to build an environment where flowers blossom or wither based on my song performance. I listen to SongCreated event to prepare the environment, spawn any manager actors for the wither/blossom mechanic. 
-* Bind to SongFinished delegate to get notified when a song is completed. 
-  Example Use Case 2 Continued: I want a burst of particles to appear on the blossomed flowers when I finish the song to celebrate my success. I make my blossomed flowers listen to SongFinished event and spawn particles.
+  
+  **Example Use Case 2**: In my mod, I would like to build an environment where flowers blossom or wither based on my song performance. I listen to SongCreated event to prepare the environment, spawn any manager actors for the wither/blossom mechanic.
+  
+* Bind to SongFinished delegate to get notified when a song is completed.
+  
+  **Example Use Case 2 Continued**: I want a burst of particles to appear on the blossomed flowers when I finish the song to celebrate my success. I make my blossomed flowers listen to SongFinished event and spawn particles.
+  
 * Bind to SongDeleted delegate to get notified when the song gets deleted (song may nor may not have been completed)
-  Example Use Case 2 Continued: I want to clear the environment after the song as to make it ready for another one. I listen to SongDeleted event and destroy all flowers and manager actors if there are any.
+  
+  **Example Use Case 2 Continued**: I want to clear the environment after the song as to make it ready for another one. I listen to SongDeleted event and destroy all flowers and manager actors if there are any.
+  
 * Bind to FireModeSwithced delegate to get notified when the fire mode gets turned on/off.
-  Example Use Case 2 Continued: I want my blossomed flowers to rotate when the player is "on fire" (achieved the required successful hit streak). I switch this functionality by making my blossomed flowers listen to FireModeSwitched.
+  
+  **Example Use Case 2 Continued**: I want my blossomed flowers to rotate when the player is "on fire" (achieved the required successful hit streak). I switch this functionality by making my blossomed flowers listen to FireModeSwitched.
+  
 * Bind to SongPauseSwitch delegate to get notified when a song gets paused/unpaused
-  Example Use Case 2 Continued: I want to make my flowers look at the player when the song gets paused, as if they want to see what the player is up to in the middle of the song. I listen to this event to set a state for look direction. 
+  
+  **Example Use Case 2 Continued**: I want to make my flowers look at the player when the song gets paused, as if they want to see what the player is up to in the middle of the song. I listen to this event to set a state for look direction.
+  
 * Bind to SongNoteHit delegate to get notified when a note gets hit successfuly or gets missed
-  Example Use Case 2 Continued: I listen to this event to set the state of my flowers to be blossomed or withered.
+  
+  **Example Use Case 2 Continued**: I listen to this event to set the state of my flowers to be blossomed or withered.
+  
 * Bind to SongNoteHittable delegate to get notified when a note enters hit window (note that there is a time window, within which a note can be hit)
-  Example Use Case 2 Continued: I would like the player to see the transition of flowers to the blossomed or withered state. In order to do this I have to spawn all flowers in a neutral state and let them transition when a note gets hit/missed. I listen to this event to spawn flowers in a neutral state.
+  
+  **Example Use Case 2 Continued**: I would like the player to see the transition of flowers to the blossomed or withered state. In order to do this I have to spawn all flowers in a neutral state and let them transition when a note gets hit/missed. I listen to this event to spawn flowers in a neutral state.
   
 ## -- to be updated --
 
