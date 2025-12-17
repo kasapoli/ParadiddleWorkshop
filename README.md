@@ -78,7 +78,7 @@ Paradiddle environments are simply Unreal Engine levels, thus any level of your 
 
 Make sure to account for highway position if you would like songs to be played in your environmets. Do not load or stream your environments manually and use the Mod Communication Subsystem to call LoadModMap function instead. This will allow the main application to unload the existing level and prepare other assets for the new level. 
 
-Some form of UI will be necessary to get the request from the user to load your environment. It is possible to create a UI window just like the ones you seen in Paradiddle and let this window carry a menu for your mod. The ways to do this will be explained later in this document. Instead of creating oyur own UI, you can also add your custom environments directly to Paradiddle's native environment list by calling AddModMapToMapList function from Mod Communication Subsystem. They will then appear in the environment menu and be chooseable by the users. 
+Some form of UI will be necessary to get the request from the user to load your environment. It is possible to create a UI window just like the ones you seen in Paradiddle and let this window carry a menu for your mod. The ways to do this will be explained later in this document. Instead of creating your own UI, you can also add your custom environments directly to Paradiddle's native environment list by calling AddModMapToMapList function from Mod Communication Subsystem. They will then appear in the environment menu and be chooseable by the users. 
 
 You can find example implementations of both use cases in the example mod's menu widget: Game/TestMod/ModUI/ModMainMenuWidget
 
