@@ -13,6 +13,18 @@ This project was created to allow the Paradiddle Community to create mods to enh
 * Override Stick and Headset Visuals
 * Functionality based on information retrieved online
 
+## Required Installations and Setup
+
+* **Unreal Engine:** Unreal Engine 5.4 has been used and it is recommended. You can go for newer versions if you are absolutely sure that there will be no compatibility issues. The simplest form of installation can be done following the guide from Epic: https://dev.epicgames.com/documentation/en-us/unreal-engine/installing-unreal-engine?application_version=5.4
+
+* **Unreal Engine Requirements and Dependencies:** Unreal Engine has software and hardware requirements to run. Installing the matching Visual Studio version for example is important for the engine to run without issues. You can checkout Epic's documentation to make necessary adjustments and installations: https://dev.epicgames.com/documentation/en-us/unreal-engine/hardware-and-software-specifications-for-unreal-engine?application_version=5.4
+
+* **Setting Up Unreal Engine for Android (Required only for Mobile platforms):**  Some additional steps have to be taken to prepare Unreal Engine to package content for Android platforms. Epic's guide: https://dev.epicgames.com/documentation/en-us/unreal-engine/set-up-android-sdk-ndk-and-android-studio-using-turnkey-for-unreal-engine?application_version=5.4
+
+* **Download/Access Paradiddle Workshop:** You can fork this repository or download it in .zip format. (For newcomers: Click on the green "Code" button and select "Download ZIP" option). Try to keep you project directory (directory to which zip file will be extracted) length short as Unreal Engine's directory length limit might create issues that are hard to spot.
+
+* **Build and Launch Paradiddle Workshop:** Please complate all the installations before moving to this step. Double click on the Unreal Engine project and select the Unreal Engine version you have installed if it prompts you. Unreal Engine will try to build and launch the project. If it fails, you may have to build it manually through your IDE.
+  
 ## Getting Started
 
 ### Project Structure
