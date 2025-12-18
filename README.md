@@ -1,6 +1,6 @@
 # --- WARNING: WORK IN PROGRESS, THE CONTENTS OF THIS DOCUMENT MAY CHANGE---
 # Paradiddle Workshop
-Base project to create mods for Paradiddle. Includes an example mod.
+Base project to create mods for Paradiddle. Includes an example mod. You can fork this repository or download the project as a zip file. 
 
 ## Description
 This project was created to allow the Paradiddle Community to create mods to enhance their experience. We did our best to offer complete creative freedom with the least amount of constraints possible. With access to main features of the app, possible mod functionalities include but definitely are not limited to:
@@ -54,7 +54,9 @@ If all these settings are done properly, your mod assets will get packaged in th
 
 * **Do not modify common classes:** Do not modify any of the classes provided in Game/Workshop. These do not get packaged with your mod content and any modifications will get lost and cause issues if they are referenced.
 
-* **New C++ classes are not supported:** Due to packaging and safety issues we do not support adding C++ content through mods at the moment. 
+* **New C++ classes are not supported:** Due to packaging and safety issues we do not support adding C++ content through mods at the moment.
+
+* **Do not modify render settings:** The shaders compiled for your mod should be usable by the main app. Many render settings affect shaders generated for Unreal Engine materials, thus changing them is likely to cause incompatibilites. We recommend not changing recnder settings unless you are certain that no compatibility issues will arise. 
 
 ### Creating Your First Mod
 
@@ -81,6 +83,13 @@ Make sure to account for highway position if you would like songs to be played i
 Some form of UI will be necessary to get the request from the user to load your environment. It is possible to create a UI window just like the ones you seen in Paradiddle and let this window carry a menu for your mod. The ways to do this will be explained later in this document. Instead of creating your own UI, you can also add your custom environments directly to Paradiddle's native environment list by calling AddModMapToMapList function from Mod Communication Subsystem. They will then appear in the environment menu and be chooseable by the users. 
 
 You can find example implementations of both use cases in the example mod's menu widget: Game/TestMod/ModUI/ModMainMenuWidget
+
+#### Mod UI and Creating A Paradiddle Window for Your Mod
+For a mod with a single feature, you wouldn't have to come up with a UI solution since every mod gets assigned a toggle which can be used to switch this feature on and off. However, as your mod gets more sophisticated and content-rich you will have to let the users navigate through the mod content and make choices. You may use Unreal Engine's UI widgets for this purpose. Paradiddle's laser pointer will allow the user to hover over and click Unreal Engine buttons and use any other interactable similarly. You can find a menu built in the Test Mod. (ModMainMenuWidget)
+
+Any menu or other form of UI should be accessible by the users. You can create interactable actors as mentioned previously and attach your UI assets to these actors. Users will then be able to grab and position you mod menu to their convenience. A more sophisticated solution is to access Paradiddle's Window class by inheriting from PDMUIWindowBase. This class allows you to place your mod assets on a Paradiddle window. An example application of this method can be found in TestMod (TestModMainUIActor).
+
+It is also undesirable, especially in VR applications to have persistent UI elements. Thus, there should be a way to switch UI visibility. You can set HasSwitchableUI boolean to true in you Mod Manager class to have a UI switch button assigned to your mod. An event will then be called in your Mod Manager class whenever this button gets clicked. You can use this event to keep track of and adjust your UI visibility state.
 
 #### Accessing Core Features 
 The infrastructure we have created allows you to access core application features and make use of them. Most of these features and events such as drum hits, song creation, song completion can be accessed through the  Mod Communication Subsystem. Please refer to the source code for detailed explanations on how to subscribe to events and make use of features. 
