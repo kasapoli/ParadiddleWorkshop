@@ -1,4 +1,6 @@
 # --- WARNING: WORK IN PROGRESS, THE CONTENTS OF THIS DOCUMENT MAY CHANGE---
+**18 Dec 2025: You have to be on Beta channels (for both Steam and Quest platforms) to be able to try mod features** 
+
 # Paradiddle Workshop
 Base project to create mods for Paradiddle. Includes an example mod. You can fork this repository or download the project as a zip file. 
 
@@ -144,6 +146,10 @@ Some simple examples can be given as follows:
 * Bind to SongNoteHittable delegate to get notified when a note enters hit window (note that there is a time window, within which a note can be hit)
   
   **Example Use Case 2 Continued**: I would like the player to see the transition of flowers to the blossomed or withered state. In order to do this I have to spawn all flowers in a neutral state and let them transition when a note gets hit/missed. I listen to this event to spawn flowers in a neutral state.
-  
+
+#### Creating Custom Drums
+To create a custom drum class, a child class of PDMDrumActorBase should be created. This base class allows your custom drum class to hook into Paradiddle's drum system. Hi-hats have an open-close mechanic and to address that another base class has been defined. Thus, to create a custom Hi-hat a child class of PDMHihatActor should be used. 
+
+Once you create the custom class you need to make some adjustments for your drum to function properly: (TO BE CONTINUED) 
 ## -- to be updated --
 
