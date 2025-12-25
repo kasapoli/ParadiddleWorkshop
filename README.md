@@ -1,5 +1,6 @@
 # --- WARNING: WORK IN PROGRESS, THE CONTENTS OF THIS DOCUMENT MAY CHANGE ---
 **24 Dec 2025: We're currently investigating an issue where creating and using a new material in your mod folder will cause a crash. As a workaround, we've found that using a material that's part of the Engine Content, such as BasicShapeMaterial or an instance of it, will work.**
+
 **18 Dec 2025: You have to be on Beta channels (for both Steam and Quest platforms) to be able to try mod features.** 
 
 # Paradiddle Workshop
