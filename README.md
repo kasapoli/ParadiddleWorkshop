@@ -21,20 +21,29 @@ This project was created to allow the Paradiddle Community to create mods to enh
 
 * **Unreal Engine:** 
 **META Fork of Unreal Engine 5.4:** 
+
 This is the most compatible engine version with the main app. Please refer to the "Rules and Constraints" section to learn more about what kind of limitations would be imposed if you choose not to use this version. Please note that this installation requires 120+ GB of free space in your memory. 
 
 You can follow this guide to install and ruin Meta fork of Unreal Engine from source: https://developers.meta.com/horizon/documentation/unreal/unreal-building-ue4-from-source/
+
 DO NOT forget to select the 5.4 branch.
+
 <img width="1246" height="322" alt="image" src="https://github.com/user-attachments/assets/c6358f20-0cda-4348-b2fd-3a24a102c0ef" />
 
 Advantages: No limitations regarding utilization of engine content.
+
 Disadvantages: More complicated installation and initialization process. Space requirements.
-Recommenden for: Mods with complex material applications. 
+
+Recommendedfor: Mods with complex material applications. 
+
 
 **Unreal Engine 5.4:** 
 The binary version of Unreal Engine distributed through the Epic Launcher can also be used. Please don't forget to read about the limitations in "Rules and Constraints" section if you choose to use this version. You can go for newer versions if you are absolutely sure that there will be no compatibility issues. The simplest form of installation can be done following the guide from Epic: https://dev.epicgames.com/documentation/en-us/unreal-engine/installing-unreal-engine?application_version=5.4
+
 Advantages: Fast and simple installation. Does not take up a lot of space. 
+
 Disadvantages: Limited number of material options. (See "Rules and Constraints" for more details) 
+
 Recommended for: Mods that are visually simple with beginner-Intermediate level material applications.  
 
 * **Unreal Engine Requirements and Dependencies:** Unreal Engine has software and hardware requirements to run. Installing the matching Visual Studio version for example is important for the engine to run without issues. You can checkout Epic's documentation to make necessary adjustments and installations: https://dev.epicgames.com/documentation/en-us/unreal-engine/hardware-and-software-specifications-for-unreal-engine?application_version=5.4
@@ -82,7 +91,10 @@ If all these settings are done properly, your mod assets will get packaged in th
 <img width="652" height="295" alt="image" src="https://github.com/user-attachments/assets/79b73c1d-0323-4348-af0b-f8781301dea4" />
 
 * **Material Limitations:** (DO NOT APPLY IF META FORK OF THE ENGINE IS INSTALLED) 
-For binary version of Unreal Engine 5.4, modders can create materials only through instancing a set of materials that have been included in the Workshop project. Thus, all new 'materials' should actually be 'Material Instances' of these parent materials. Any material that does not originate from them will cause crashes. You can find the parent materials in Content/Workshop/Materials
+
+For binary version of Unreal Engine 5.4, modders can create materials only through instancing a set of materials that have been included in the Workshop project. Thus, all new 'materials' should actually be 'Material Instances' of these parent materials. Any material that does not originate from them will cause crashes. 
+
+You can find the parent materials in Content/Workshop/Materials
 <img width="986" height="473" alt="image" src="https://github.com/user-attachments/assets/4a5d98b6-cd34-49c5-9b3d-cbf33d3dbd02" />
 
 Different materials have been created to offer modders more options. Example applications can be found in the Test Mod materials.(Content/TestMod/Materials)
