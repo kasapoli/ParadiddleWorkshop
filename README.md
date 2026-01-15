@@ -1,7 +1,9 @@
 # --- WARNING: WORK IN PROGRESS, THE CONTENTS OF THIS DOCUMENT MAY CHANGE ---
-**24 Dec 2025: We're currently investigating an issue where creating and using a new material in your mod folder will cause a crash. As a workaround, we've found that using a material that's part of the Engine Content, such as BasicShapeMaterial or an instance of it, will work.**
 
-**18 Dec 2025: You have to be on Beta channels (for both Steam and Quest platforms) to be able to try mod features.** 
+**15 Jan 2026:** We have been made aware by our community members that, they have been having troubles with accessing Visual Studio 2022. There is also a forum post pertaininhg to this issue. Below are links to the forum post and to VS2022 download that seems to be functioning. Please note that we can not guarantee the maintenance and functionality of these links.
+
+Forum Post: https://forums.unrealengine.com/t/locked-out-of-using-ue5-because-visual-studio-2022-community-is-not-available-anymore/2675624/6
+Download Link: https://aka.ms/vs/17/release/vs_community.exe
 
 # Paradiddle Workshop
 Base project to create mods for Paradiddle. Includes an example mod. You can fork this repository or download the project as a zip file. 
