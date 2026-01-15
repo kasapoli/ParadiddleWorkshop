@@ -3,6 +3,7 @@
 **15 Jan 2026:** We have been made aware by our community members that, they have been having troubles with accessing Visual Studio 2022. There is also a forum post pertaininhg to this issue. Below are links to the forum post and to VS2022 download that seems to be functioning. Please note that we can not guarantee the maintenance and functionality of these links.
 
 Forum Post: https://forums.unrealengine.com/t/locked-out-of-using-ue5-because-visual-studio-2022-community-is-not-available-anymore/2675624/6
+
 Download Link: https://aka.ms/vs/17/release/vs_community.exe
 
 # Paradiddle Workshop
