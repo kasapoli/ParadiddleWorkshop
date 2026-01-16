@@ -27,7 +27,7 @@ This project was created to allow the Paradiddle Community to create mods to enh
 
 This is the most compatible engine version with the main app. Please refer to the "Rules and Constraints" section to learn more about what kind of limitations would be imposed if you choose not to use this version. Please note that this installation requires 120+ GB of free space in your memory. 
 
-You can follow this guide to install and ruin Meta fork of Unreal Engine from source: https://developers.meta.com/horizon/documentation/unreal/unreal-building-ue4-from-source/
+You can follow this guide to install and run Meta fork of Unreal Engine from source: https://developers.meta.com/horizon/documentation/unreal/unreal-building-ue4-from-source/
 
 DO NOT forget to select the 5.4 branch.
 
