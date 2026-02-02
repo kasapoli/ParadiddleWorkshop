@@ -189,6 +189,33 @@ Some simple examples can be given as follows:
 #### Creating Custom Drums
 To create a custom drum class, a child class of PDMDrumActorBase should be created. This base class allows your custom drum class to hook into Paradiddle's drum system. Hi-hats have an open-close mechanic and to address that another base class has been defined. Thus, to create a custom Hi-hat a child class of PDMHihatActor should be used. 
 
-Once you create the custom class you need to make some adjustments for your drum to function properly: (TO BE CONTINUED) 
-## -- to be updated --
+Once you create the custom class you need to make some adjustments for your drum to function properly: 
+
+**Selection of the Drum Type:** Setting the Mod Drum Type variable in the Class Defaults will define how the mod drum will get treated by Paradiddle. Regardless of the sound the mod drum will end up making, Paradiddle will consider this drum to be of the selected type. This is especially important for compatibility with the highway system. You can also use this drum type to retrieve the corresponding drum color from the main app by calling GetModDrumColor function from the Mod Communication Subsystem. Using this color as an indicator on the custom drums is not compulsory but strongly recommended as it is an essential part of the highway system. 
+<img width="989" height="286" alt="image" src="https://github.com/user-attachments/assets/86e896b0-43ab-4202-8576-4472af92a2b9" />
+<img width="698" height="314" alt="image" src="https://github.com/user-attachments/assets/f1a93752-acda-4fd0-9ae1-16adc6383fa4" />
+
+**Selection of the Sound Asset Type:** Custom drums can access Paradiddle's drum sound library trough adding sound types to the Sound Asset Type array defined in the base drum class. The sound assets are not included in the Workshop project and are represented with an enumaration data type. Mod builders can choose multiple sound assets and handle the selection process within the drum class. This topic will be explained more in detail, later in this document. Mod builder can also choose to not use Paradiddle's sound assets and handle drum sounds within the mod. This is likely to introduce a delay in sound especially on mobile platforms. 
+<img width="917" height="398" alt="image" src="https://github.com/user-attachments/assets/ab209b40-a389-455d-84c0-facafe1e4fe6" />
+
+**Setup Functions Called by Paradiddle:** Once a custom drum gets spawned, Paradiddle will call some setup functions and pass on parameters to enable mod builders to make necessary adjustments. 
+
+  DrumSpawnedInScene: This function is called after the custom drum has been spawned and brought in the world. Always after BeginPlay.
+
+  SetCollisionPreset(TArray<ECollisionChannel>ChannelsToBlock, ECollisionChannel DrumCollisionType): This function is called to allow the mod builder to setup collision as to make the custom drum interactable with drumsticks. The collider/mesh that is expected to interact with the drumsticks should bare the collision type of DrumCollisionType and the response of this colliders to all the collision channels included in ChannellsToBlock should be "Block".
+
+**Get Hit Sound Index:** Every time a custom drum gets hit, Paradidle will ask for an index as to choose a sound to be played from the sound asset array. This function defaults to 0 if the mod builders don't override it, thus supports a single sound asset. Mod builders who would like to use multiple sounds for a single drum should override this function and come up with a way to select the index that is goind to be used to get the sound asset from the array. Some exampple applications are selecting the index based on the hit component (by creating multiple components that can collide) or selecting the index based on hit position.
+<img width="837" height="407" alt="image" src="https://github.com/user-attachments/assets/c0be39fb-3d2c-44e5-9454-3d0ff9c3cd86" />
+
+
+
+
+
+
+
+
+
+
+
+
 
